@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <link href='//fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" media="screen" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+    <style type="text/css">
+        body {
+            font-family: 'Roboto', sans-serif;
+            padding: 1rem;
+        }
+        
+        img#logo {
+            height: 32px;
+        }
+        
+        img.promo {
+            margin: 1rem;
+            height: 10rem;
+        }
+        
+        .navbar a.navbar-brand h3 {
+            display: inline-block;
+        }
+        
+        .karttakuva .card-header {
+            background-color: rgba(207, 239, 248, 0.2);
+        }
+        
+        .card-block {
+            padding: 1rem;
+        }
+    </style>
+
+</head>
+
+<body>
+    <nav class="navbar navbar-light">
+        <a class="navbar-brand" href="#"><img id="logo" src="mml-logo-fi.png" />
+            <h3>beta-karttakuva.maanmittauslaitos.fi</h3> </a>
+        <ul class="nav navbar-nav ">
+            <li class="nav-item active "><a class="nav-link " href="# "><span></span><span
+					class="sr-only ">(current)</span></a>
+            </li>
+            <li></li>
+        </ul>
+    </nav>
+
+    <div class="card-group karttakuva">
+
+        <div class="card">
+            <h3 class="card-header">Vector tiles demos</h3>
+            <div class="card-block">
+                <div>
+                    <a href="https://beta-karttakuva.maanmittauslaitos.fi/demo/ETRS-TM35FIN_vectortiles/index.html?19">Vector tiles on raster background  ETRS-TM35FIN</a>
+                </div>
+
+            </div>
+            <div class="card-block">
+                <div>
+                    <a href="https://beta-karttakuva.maanmittauslaitos.fi/demo/WGS84_Pseudo-Mercator_vectortiles/index.html">Vector tiles on raster background Web Mercator</a>
+                </div>
+
+            </div>
+            
+            <div class="card-block">
+                <div>
+                    <a href="https://beta-karttakuva.maanmittauslaitos.fi/demo/WGS84_Pseudo-Mercator_vectortiles_3D/index.html">3D view of vector tiles on raster background with with some client side property filtering and display.</a>
+                </div>
+
+            </div>
+            
+            
+        </div>
+
+        <div class="card">
+            <h3 class="card-header">Vector tiles is GK zones</h3>
+
+            <div class="card-block">
+                <p class="card-text">
+                    Vector tile content overlay on WMTS raster backround maps. These demos show vector tiles in various finnish Gauss-Krüger zones.
+                    <br /> Please zoom in the map to see vector content.
+                </p>
+
+                <p class="card-text">
+                    Vector tiles on raster background in Gauss Kruger zones
+                    <a href="https://beta-karttakuva.maanmittauslaitos.fi/demo/ETRS-GKnn_vectortiles/index.html?19">ETRS-GK19</a>,
+                    <a href="https://beta-karttakuva.maanmittauslaitos.fi/demo/ETRS-GKnn_vectortiles/index.html?21">ETRS-GK20</a>, <a href="https://beta-karttakuva.maanmittauslaitos.fi/demo/ETRS-GKnn_vectortiles/index.html?20">ETRS-GK21</a>,
+                    <a href="https://beta-karttakuva.maanmittauslaitos.fi/demo/ETRS-GKnn_vectortiles/index.html?22">ETRS-GK22</a>,
+                    <a href="https://beta-karttakuva.maanmittauslaitos.fi/demo/ETRS-GKnn_vectortiles/index.html?23">ETRS-GK23</a>,
+                    <a href="https://beta-karttakuva.maanmittauslaitos.fi/demo/ETRS-GKnn_vectortiles/index.html?24">ETRS-GK24</a>,
+                    <a href="https://beta-karttakuva.maanmittauslaitos.fi/demo/ETRS-GKnn_vectortiles/index.html?25">ETRS-GK25</a>,
+                    <a href="https://beta-karttakuva.maanmittauslaitos.fi/demo/ETRS-GKnn_vectortiles/index.html?26">ETRS-GK26</a>,
+                    <a href="https://beta-karttakuva.maanmittauslaitos.fi/demo/ETRS-GKnn_vectortiles/index.html?27">ETRS-GK27</a>,
+                    <a href="https://beta-karttakuva.maanmittauslaitos.fi/demo/ETRS-GKnn_vectortiles/index.html?28">ETRS-GK28</a>,
+                    <a href="https://beta-karttakuva.maanmittauslaitos.fi/demo/ETRS-GKnn_vectortiles/index.html?29">ETRS-GK29</a>,
+                    <a href="https://beta-karttakuva.maanmittauslaitos.fi/demo/ETRS-GKnn_vectortiles/index.html?30">ETRS-GK30</a>,
+                    <a href="https://beta-karttakuva.maanmittauslaitos.fi/demo/ETRS-GKnn_vectortiles/index.html?31">ETRS-GK31</a>
+                </p>
+
+
+
+            </div>
+        </div>
+    </div>
+
+    <div class="card-group karttakuva">
+
+        <div class="card">
+            <h3 class="card-header">General information</h3>
+            <div class="card-block">
+                <p class="card-text"><a href="https://github.com/nlsfi/beta-karttakuva.maanmittauslaitos.fi">GitHub repository for demos</a>
+                </p>
+                <p class="card-text">
+                    Vector tiles in ETRS-TM35FIN. Vector content is shown on resolutions less than or equal to 16m. Vector tile database is based on a snapshot from October 2017.
+                    <br /> Note: The area limited for vector content on the map is not related to actual ETRS-GK zone extent .
+                </p>
+                <p class="card-text">
+                    More info on ETRS-GK zones see <a target="_blank" href="http://docs.jhs-suositukset.fi/jhs-suositukset/JHS197_liite10/JHS197_liite10.html">JHS 197</a>.&nbsp;
+                    <a href="http://www.maanmittauslaitos.fi/kartat-ja-paikkatieto/asiantuntevalle-kayttajalle/kartta-ja-paikkatietojen-rajapintapalvelut-1">Info on WMTS background maps </a>
+                    <br/>
+                    <a href="https://github.com/mapbox/vector-tile-spec">Information on vector tiles</a> used in this demos and proof-of concept service.
+                </p>
+            </div>
+        </div>
+
+
+
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+</body>
+
+</html>

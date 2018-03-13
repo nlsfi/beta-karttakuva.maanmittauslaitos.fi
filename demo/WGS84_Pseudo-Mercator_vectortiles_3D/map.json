@@ -1,0 +1,180 @@
+{
+    "version": 8,
+    "pitch": 40,
+    "bearing": 20,
+    "sources": {
+        "boundaries": {
+            "type": "vector",
+            "tiles": ["https://beta-karttakuva.maanmittauslaitos.fi/vectortiles/tms/EPSG:900913/cadastral_boundaries/{z}/{x}/{y}/vector.pbf"]
+        },
+        "boundary_markers": {
+            "type": "vector",
+            "tiles": ["https://beta-karttakuva.maanmittauslaitos.fi/vectortiles/tms/EPSG:900913/cadastral_boundary_markers/{z}/{x}/{y}/vector.pbf"]
+        },
+        "buildings": {
+            "type": "vector",
+            "tiles": ["https://beta-karttakuva.maanmittauslaitos.fi/vectortiles/tms/EPSG:900913/buildings/{z}/{x}/{y}/vector.pbf"]
+        },
+        "roads": {
+            "type": "vector",
+            "tiles": ["https://beta-karttakuva.maanmittauslaitos.fi/vectortiles/tms/EPSG:900913/roads/{z}/{x}/{y}/vector.pbf"]
+        },
+        "taustakartta": {
+            "type": "raster",
+            "tiles": [
+                "https://karttamoottori.maanmittauslaitos.fi/maasto/wmts?layer=taustakartta&style=default&tilematrixset=WGS84_Pseudo-Mercator&Service=WMTS&Request=GetTile&Version=1.0.0&Format=image%2Fpng&TileMatrix={z}&TileCol={x}&TileRow={y}"
+            ],
+            "tileSize": 256
+        }
+    },
+    "layers": [
+        {
+            "id": "background",
+            "type": "background",
+            "paint": {
+                "background-color": "rgba(240,240,240,0.5)"
+            }
+                }, {
+            "id": "taustakartta",
+            "type": "raster",
+            "source": "taustakartta",
+            "paint": {}
+                }, {
+            "id": "roads",
+            "type": "line",
+            "source": "roads",
+            "source-layer": "roads",
+            "paint": {
+                "line-width": 7,
+                "line-color": "rgba(0,0,0,0.3)"
+            }
+                }, {
+            "id": "boundaries",
+            "type": "line",
+            "source": "boundaries",
+            "source-layer": "cadastral_boundaries",
+            "paint": {
+                "line-width": 1,
+                "line-color": "rgba(255,0,0,2)"
+            }
+                }, {
+            "id": "boundary_markers",
+            "type": "circle",
+            "source": "boundary_markers",
+            "source-layer": "cadastral_boundary_markers",
+            "paint": {
+                "circle-radius": {
+                    "base": 1.75,
+                    "stops": [[12, 2], [22, 180]]
+                },
+                "circle-color": "rgba(255,0,0,0.5)"
+            }
+                },
+        {
+            "id": "buildings",
+            "type": "fill-extrusion",
+            "source": "buildings",
+            "source-layer": "buildings",
+            "paint": {
+                "fill-extrusion-color": {
+                    "property": "kind_num",
+                    "stops": [
+                     [42100, "#ff0000"],
+                     [42110, "#ff0000"],
+                     [42111, "#ff0000"],
+                     [42112, "#ff0000"],
+                     [42120, "#f0f0f0"],
+                     [42121, "#f0f0f0"],
+                     [42122, "#f0f0f0"],
+                     [42130, "#00ff00"],
+                     [42131, "#00ff00"],
+                     [42132, "#00ff00"],
+                     [42140, "#a0c0c0"],
+                     [42141, "#a0c0c0"],
+                     [42142, "#a0c0c0"],
+                     [42150, "#000000"],
+                     [42151, "#000000"],
+                     [42152, "#000000"],
+                     [42160, "#405060"],
+                     [42161, "#405060"],
+                     [42162, "#405060"],
+                     [42170, "#405060"],
+                     [42200, "#ff0000"],
+                     [42210, "#ff0000"],
+                     [42211, "#ff0000"],
+                     [42212, "#ff0000"],
+                     [42220, "#f0f0f0"],
+                     [42221, "#f0f0f0"],
+                     [42222, "#f0f0f0"],
+                     [42230, "#00ff00"],
+                     [42231, "#00ff00"],
+                     [42232, "#00ff00"],
+                     [42240, "#a0c0c0"],
+                     [42241, "#a0c0c0"],
+                     [42242, "#a0c0c0"],
+                     [42250, "#000000"],
+                     [42251, "#000000"],
+                     [42252, "#000000"],
+                     [42260, "#405060"],
+                     [42261, "#405060"],
+                     [42262, "#405060"],
+                     [42270, "#405060"]
+
+                 ]
+                },
+
+                "fill-extrusion-height": {
+                    "property": "kind_num",
+                    "stops": [
+                     [42100, 10],
+                     [42110, 5],
+                     [42111, 20],
+                     [42112, 50],
+                     [42120, 10],
+                     [42121, 20],
+                     [42122, 60],
+                     [42130, 5],
+                     [42131, 10],
+                     [42132, 40],
+                     [42140, 70],
+                     [42141, 10],
+                     [42142, 50],
+                     [42150, 10],
+                     [42151, 20],
+                     [42152, 40],
+                     [42160, 5],
+                     [42161, 30],
+                     [42162, 90],
+                     [42170, 90],
+                     [42200, 10],
+                     [42210, 5],
+                     [42211, 30],
+                     [42212, 90],
+                     [42220, 10],
+                     [42221, 30],
+                     [42222, 90],
+                     [42230, 5],
+                     [42231, 30],
+                     [42232, 90],
+                     [42240, 50],
+                     [42241, 30],
+                     [42242, 90],
+                     [42250, 10],
+                     [42251, 30],
+                     [42252, 90],
+                     [42260, 5],
+                     [42261, 30],
+                     [42262, 90],
+                     [42270, 90]
+
+                 ]
+                },
+
+
+                "fill-extrusion-base": 0,
+
+                "fill-extrusion-opacity": 0.8
+            }
+        }
+    ]
+}
