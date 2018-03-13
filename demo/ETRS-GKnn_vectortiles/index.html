@@ -52,6 +52,7 @@
 
         tileMatrixSizeMetres = 8192 * 256,
         tileMatrixSizeMetresHalf = tileMatrixSizeMetres / 2,
+        tileMatrixSizeMetresQuarter = tileMatrixSizeMetres / 4,
         fakeEast = (kaista * 100000) + 500000,
         maxNorth = 8388608,
         minNorth = maxNorth - tileMatrixSizeMetres,
@@ -70,7 +71,7 @@
         gkshiftmul = 1,
         gkshift = 131072,
         extent = [keskilinja - gkshiftmul * gkshift, minNorth, keskilinja + gkshiftmul * gkshift, maxNorth],
-        center = [keskilinja, minNorth + tileMatrixSizeMetresHalf];
+        center = [keskilinja, minNorth + tileMatrixSizeMetresQuarter];
 
       // proj with axis order
       proj4.defs(epsg, '+proj=tmerc +axis=neu +lat_0=0 +lon_0=' + kaista + 'k=1 +x_0=' + fakeEast + ' +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs')
