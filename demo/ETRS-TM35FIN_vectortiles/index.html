@@ -41,7 +41,7 @@
     <div id="status"></div>
     <div id="map" class="map"></div>
     <script>
-     var res= 2048, epsg= 'EPSG:3067', matrixSet = 'ETRS-TM35FIN',
+     var res= 2048, epsg= 'EPSG:3067', matrixSet = 'ETRS-TM35FIN', center = [574048,6968538],
         template = '<div>' + epsg + ' (' + matrixSet + ')</div><div> EN ({x}, {y})</div>',
         map, layers = [],
         style_boundary = new ol.style.Style({
