@@ -46,8 +46,7 @@
         kaista = 25;
       }
 
-      var maxZoom = 15,
-        srid = 3854 + kaista,
+      var srid = 3854 + kaista,
         epsg = 'EPSG:' + srid,
         matrixSet = 'ETRS-GK' + kaista,
 
@@ -57,7 +56,7 @@
         maxNorth = 8388608,
         minNorth = maxNorth - tileMatrixSizeMetres,
         minEast = fakeEast - 250000,
-        res = 2048,
+        res = 8,
 
         pohjoinen = 8388608,
         etelainen = 6291456,
