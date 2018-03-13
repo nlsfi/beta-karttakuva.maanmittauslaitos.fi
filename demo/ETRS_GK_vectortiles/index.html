@@ -189,7 +189,7 @@
         return wmtsLayer;
       });
 
-      var v2 = fetch('//beta-karttakuva.maanmittauslaitos.fi/kiinteisto/wmts?service=WMTS&request=GetCapabilities').then(function(response) {
+      var v2 = fetch('//beta-karttakuva.maanmittauslaitos.fi/vectortiles/wmts?service=WMTS&request=GetCapabilities').then(function(response) {
         return response.text();
       }).then(function(text) {
         var result = parser.read(text);
