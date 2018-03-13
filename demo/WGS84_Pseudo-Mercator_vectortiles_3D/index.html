@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8' />
+    <title>Vektoritiilet</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+
+    <link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
+    <link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link href="https://api.tiles.mapbox.com/mapbox-gl-js/v0.44.0/mapbox-gl.css" rel="stylesheet" />
+    <link href="style.css" rel="stylesheet" />
+    <style type="text/css">
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto';
+        }
+        
+        #map {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+        }
+        
+        div#form div {
+            margin-bottom: 0.1rem;
+        }
+        
+        div#form {
+            position: absolute;
+            z-index: 1000;
+            right: 10px;
+            bottom: 10px;
+            width: 256px;
+            min-height: 250px;
+            border: 1px solid grey;
+            border-radius: 5px;
+            padding: 5px;
+            margin: 2px;
+            background-color: rgba(255, 255, 255, 0.7);
+        }
+        
+        div#features {
+            position: absolute;
+            z-index: 1000;
+            left: 10px;
+            bottom: 10px;
+            width: 256px;
+            height: 250px;
+            max-height: 250px;
+            border: 1px solid grey;
+            border-radius: 5px;
+            padding: 5px;
+            margin: 2px;
+            background-color: rgba(255, 255, 255, 0.7);
+        }
+        
+        div#features {
+            overflow: hidden;
+        }
+        
+        div#features ul li div div {
+            font-family: 'Roboto';
+        }
+    </style>
+</head>
+
+<body>
+    <div id="features">
+        <ul v-if="features.length">
+            <li v-for="feat in features">
+                <div v-for="(item,index) in feat.properties">
+                    <div>
+                        {{index}} : {{item}}
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div id="form">
+        <div>
+            <b-button size="sm" variant="primary" v-on:click="toggle_boundaries">
+                <span v-if="boundaries">Hide cadastral boundaries</span>
+                <span v-if="!boundaries">Show cadastral boundaries</span>
+            </b-button>
+        </div>
+        <div>
+            <b-button size="sm" variant="primary" v-on:click="toggle_boundaryMarkers">
+                <span v-if="boundaryMarkers">Hide cadastral markers</span>
+                <span v-if="!boundaryMarkers">Show cadastral markers</span>
+            </b-button>
+        </div>
+
+
+        <hr />
+        <div>
+            <b-button size="sm" variant="primary" v-on:click="hide_buildings">
+                <span>Hide buildings</span>
+            </b-button>
+        </div>
+        <div>
+            <b-button size="sm" variant="primary" v-on:click="show_buildings">
+                <span>Show all buildings</span>
+            </b-button>
+        </div>
+
+        <div>
+            <b-button size="sm" variant="success" v-show="!buildings_residential" v-on:click="toggle_buildings('residential')">
+                <span>Show only residential buildings</span>
+            </b-button>
+        </div>
+        <div>
+            <b-button size="sm" variant="success" v-show="!buildings_public" v-on:click="toggle_buildings('public')">
+                <span>Show only public buildings</span>
+            </b-button>
+        </div>
+        <div>
+            <b-button size="sm" variant="success" v-show="!buildings_cottage" v-on:click="toggle_buildings('cottage')">
+                <span>Show only cottages</span>
+            </b-button>
+        </div>
+        <div>
+            <b-button size="sm" variant="success" v-show="!buildings_industrial" v-on:click="toggle_buildings('industrial')">
+                <span>Show oly industrial buildings</span>
+            </b-button>
+        </div>
+
+
+    </div>
+    <div id='map'></div>
+
+    <script src="//cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL"></script>
+    <script src="//cdn.polyfill.io/v2/polyfill.js?features=fetch,Promise"></script>
+    <script src="//unpkg.com/vue"></script>
+    <script src='//api.tiles.mapbox.com/mapbox-gl-js/v0.44.0/mapbox-gl.js'></script>
+    <script src="//cdn.jsdelivr.net/npm/tween.js@16.3.4"></script>
+    <script src="//cdn.jsdelivr.net/npm/color-js@1.0.3"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.5/lodash.js"></script>
+    <script src="//unpkg.com/babel-polyfill@latest/dist/polyfill.min.js"></script>
+    <script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>
+    <script>
+        window.addEventListener('load', function () {
+
+            mapboxgl.accessToken = 'pk.eyJ1IjoiamFuc2t1IiwiYSI6ImNqMzJvNXRibzAwMDcyeG9jaHhwMnc2d2YifQ.mN0O1o-WgG6wvb9B06ChXw';
+
+            var data = {
+                    kiinteistotunnus: '?'
+                },
+                featureData = {
+                    features: []
+                },
+
+                formData = {
+                    kiinteistotunnus: '',
+                    nimi: '',
+                    __buildings: true,
+                    buildinds_filter: undefined,
+                    buildings_filters: {
+                        residential: ["in", "kind_num", 42210, 42211, 42212],
+                        public: ["in", "kind_num", 42220, 42221, 42222],
+                        cottage: ["in", "kind_num", 42230, 42231, 42232],
+                        industrial: ["in", "kind_num", 42240, 42241, 42242]
+                    },
+                    boundaries: true,
+                    boundaryMarkers: true,
+
+                };
+
+            fetch('map.json').
+            then(function (response) {
+                return response.json();
+            }).then(map).then(ui)
+
+
+
+            function map(mapStyle) {
+
+                var map = new mapboxgl.Map({
+                    container: 'map',
+                    style: mapStyle,
+                    zoom: 15,
+                    pitch: 40,
+                    bearing: 20,
+                    center: [24.9108593, 60.1630516]
+                });
+
+                map.addControl(new mapboxgl.NavigationControl());
+
+                map.on('mousemove', function (e) {
+                    var features = map.queryRenderedFeatures(e.point);
+                    featureData.features = features;
+                });
+
+                return map;
+            }
+
+            function ui(map) {
+                new Vue({
+                    el: '#features',
+                    data: featureData
+                });
+
+
+                new Vue({
+                    el: '#form',
+                    data: formData,
+                    computed: {
+                        buildings_filter: {
+                            // setter
+                            set: function (newValue) {
+                                var clickedLayer = 'buildings',
+                                    filterValue = newValue ? this.buildings_filters[newValue] : undefined;
+                                console.log("SETTING FILTER", map, clickedLayer, newValue, filterValue)
+                                map.setFilter(clickedLayer, filterValue);
+                            },
+                            get: function () {
+
+                            }
+                        },
+                        buildings: {
+                            get: function () {
+                                return this.__buildings;
+                            },
+                            set: function (newValue) {
+                                this.__buildings = newValue;
+                                var clickedLayer = 'buildings';
+                                if (newValue) {
+                                    map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
+                                } else {
+                                    map.setLayoutProperty(clickedLayer, 'visibility', 'none');
+                                }
+                            }
+                        },
+                        buildings_residential: {
+                            get: function () {
+                                return this.buildings && this.buildings_filter === 'residential';
+                            }
+                        },
+                        buildings_public: {
+                            get: function () {
+                                return this.buildings && this.buildings_filter === 'public';
+                            }
+                        },
+                        buildings_cottage: {
+                            get: function () {
+                                return this.buildings && this.buildings_filter === 'cottage';
+                            }
+                        },
+                        buildings_industrial: {
+                            get: function () {
+                                return this.buildings && this.buildings_filter === 'industrial';
+                            }
+                        }
+                    },
+                    methods: {
+                        info: function () {
+
+                        },
+                        toggle_boundaries: function () {
+                            var b = !this.boundaries;
+                            this.boundaries = b;
+                            var clickedLayer = 'boundaries';
+                            map.setLayoutProperty(clickedLayer, 'visibility', b ? 'visible' : 'none');
+                        },
+                        show_buildings: function () {
+                            this.buildings_filter = undefined;
+                            this.buildings = true;
+                        },
+                        hide_buildings: function () {
+                            this.buildings = false;
+                        },
+                        toggle_buildings: function (rel) {
+                            this.buildings_filter = rel;
+                            this.buildings = true;
+                        },
+                        toggle_boundaryMarkers: function () {
+                            var b = !this.boundaryMarkers;
+                            this.boundaryMarkers = b;
+                            var clickedLayer = 'boundary_markers';
+                            map.setLayoutProperty(clickedLayer, 'visibility', b ? 'visible' : 'none');
+                        }
+                    }
+                });
+            }
+
+
+
+
+
+        });
+    </script>
+</body>
+
+</html>
