@@ -116,7 +116,8 @@
             },
             boundaryLayer,
             boundaryMarkersLayer,
-            buildingsLayer
+            buildingsLayer,
+            parcelLayer
         ;
 
         var styles = {
@@ -494,8 +495,10 @@
 
             return km_tk_options;
         }).then(function (km_tk_options) {
-            var xyzTileGrid = km_tk_options.tileGrid,               
-                parcelLayer = new ol.layer.VectorTile({
+            var xyzTileGrid = km_tk_options.tileGrid;
+            
+            
+            parcelLayer = new ol.layer.VectorTile({
                     style: parcelStyle,
                     renderMode: _renderMode,
                     maxResolution: 16,
