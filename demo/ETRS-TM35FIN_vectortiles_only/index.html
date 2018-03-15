@@ -113,7 +113,12 @@
                 buildings: true,
                 boundaries: false,
                 boundaryMarkers: false
-            };
+            },
+            boundaryLayer,
+            boundaryMarkersLayer,
+            buildingsLayer,
+            parcelLayer
+        ;
 
         var styles = {
                 "boundary_marker": new ol.style.Style({
@@ -331,11 +336,11 @@
                 })
             }),
             style_parcel = new ol.style.Style({
-             /*   stroke: new ol.style.Stroke({
-                    color: 'rgba(255,0,0,0.8)',
-                    width: 1,
-                    lineDash: [10, 5]
-                }),*/
+                /*   stroke: new ol.style.Stroke({
+                       color: 'rgba(255,0,0,0.8)',
+                       width: 1,
+                       lineDash: [10, 5]
+                   }),*/
 
                 fill: new ol.style.Fill({
                     color: 'rgba(255,0,0, 0.05)'
@@ -392,54 +397,6 @@
             return style_boundary;
         }
 
-        function rekisteriyksikkolaji_col(rekisteriyksikkolaji) {
-
-            switch (rekisteriyksikkolaji) {
-            case 0:
-                break;
-            case 1:
-                // tila
-                return 'rgba(234,171,8,0.4)';
-                break;
-            case 13:
-                // tontti
-                return 'rgba(249,104,0,.4)';
-                break;
-            case 3:
-            case 10:
-                // mehtä
-                return 'rgba(0,255,0,0.5)';
-                break;
-            case 21:
-            case 22:
-            case 4:
-                // tie liitännäis
-                return 'rgba(0,0,0,0.2)';
-                break;
-            case 7:
-            case 8:
-            case 17:
-                // vesj
-                return 'rgba(0,0,255,0.2)';
-                break;
-
-            case 14:
-                // yleinen
-                return 'rgba(240,240,240,0.1)';
-                break;
-            case 19:
-                // suojelu
-                return 'rgba(0,128,0,0.4)';
-                break;
-
-            }
-
-            return 'rgba(255,0,0,0.5)';
-        }
-
-
-
-
 
 
         function boundaryMarkerStyle(feature) {
@@ -462,14 +419,69 @@
             return style_parcel;
         }
 
+
+        function format_kiinteistotunnus(tn) {
+            if (!tn || !tn.length || tn.length != 14) {
+                return '';
+            }
+
+            var parts = [parseInt(tn.substring(0, 3), 10),
+                             parseInt(tn.substring(3, 6), 10),
+                             parseInt(tn.substring(6, 10), 10),
+                             parseInt(tn.substring(10, 14), 10)];
+            return parts.join('-');
+        }
+
+
         var projection_epsg_no = '3067',
-            xyzTileGrid,
-            formatMVT = new ol.format.MVT();
+            formatMVT = new ol.format.MVT(),
+            parser = new ol.format.WMTSCapabilities(),
+            map,
+            projection = new ol.proj.Projection({
+                code: 'EPSG:3067',
+                extent: [-548576, 6291456, 1548576, 8388608]
+            }),
+            extent = [-548576, 6291456, 1548576, 8388608];
+
+
+        function onMouseMove(browserEvent) {
+            var coordinate = browserEvent.coordinate;
+            var pixel = map.getPixelFromCoordinate(coordinate);
+            var el = document.getElementById('status');
+            var msgParts = [];
+            map.forEachFeatureAtPixel(pixel, function (feature) {
+                if (!feature.get('kiinteistotunnus')) {
+                    return;
+                }
+                msgParts.push(format_kiinteistotunnus(feature.get('kiinteistotunnus')) || '');
+            });
+            if (msgParts.length > 1) {
+                data.kiinteistotunnus = msgParts.join(',');
+            } else {
+                data.kiinteistotunnus = msgParts[0] || '';
+            }
+            el.style.left = '' + (pixel[0] + 20) + 'px';
+            el.style.top = '' + (pixel[1] - 30) + 'px';
+        }
+
+        function onMouseClick(browserEvent) {
+            var coordinate = browserEvent.coordinate;
+            var pixel = map.getPixelFromCoordinate(coordinate);
+            map.forEachFeatureAtPixel(pixel, function (feature) {
+                var kt = feature.get('kiinteistotunnus')
+                if (!kt) {
+                    return;
+                }
+                formData.kiinteistotunnus = format_kiinteistotunnus(kt);
+                selection.selected = feature;
+                selection.kiinteistotunnus = kt;
+                parcelLayer.changed();
+
+            });
+        }
 
 
 
-        var parser = new ol.format.WMTSCapabilities();
-        var map;
         fetch('//karttamoottori.maanmittauslaitos.fi/maasto/wmts/1.0.0/WMTSCapabilities.xml').then(function (response) {
             return response.text();
         }).then(function (text) {
@@ -479,22 +491,14 @@
                     matrixSet: 'ETRS-TM35FIN'
                 });
 
-            xyzTileGrid = km_tk_options.tileGrid;
 
-            var buildingLayer = new ol.layer.VectorTile({
-                    style: buildingStyle,
-                    renderMode: _renderMode,
-                    maxResolution: 8,
-                    opacity: 0.7,
-                    source: new ol.source.VectorTile({
-                        tilePixelRatio: 1, // oversampling when > 1
-                        tileGrid: xyzTileGrid,
-                        format: formatMVT,
-                        url: 'https://beta-karttakuva.maanmittauslaitos.fi/vectortiles/wmts/1.0.0/buildings/default/EPSG:' + projection_epsg_no + '/{z}/{y}/{x}.pbf'
-                    })
-                }),
 
-                parcelLayer = new ol.layer.VectorTile({
+            return km_tk_options;
+        }).then(function (km_tk_options) {
+            var xyzTileGrid = km_tk_options.tileGrid;
+            
+            
+            parcelLayer = new ol.layer.VectorTile({
                     style: parcelStyle,
                     renderMode: _renderMode,
                     maxResolution: 16,
@@ -505,8 +509,24 @@
                         format: formatMVT,
                         url: 'https://beta-karttakuva.maanmittauslaitos.fi/vectortiles/wmts/1.0.0/cadastral_parcels/default/EPSG:' + projection_epsg_no + '/{z}/{y}/{x}.pbf'
                     })
-                }),
-                boundaryLayer = new ol.layer.VectorTile({
+                });
+    
+            
+             buildingLayer = new ol.layer.VectorTile({
+                    style: buildingStyle,
+                    renderMode: _renderMode,
+                    maxResolution: 8,
+                    opacity: 0.7,
+                    source: new ol.source.VectorTile({
+                        tilePixelRatio: 1, // oversampling when > 1
+                        tileGrid: xyzTileGrid,
+                        format: formatMVT,
+                        url: 'https://beta-karttakuva.maanmittauslaitos.fi/vectortiles/wmts/1.0.0/buildings/default/EPSG:' + projection_epsg_no + '/{z}/{y}/{x}.pbf'
+                    })
+                });
+            
+            
+            boundaryLayer = new ol.layer.VectorTile({
                     style: boundaryStyle,
                     renderMode: _renderMode,
                     maxResolution: 16,
@@ -518,7 +538,7 @@
                         format: formatMVT,
                         url: 'https://beta-karttakuva.maanmittauslaitos.fi/vectortiles/wmts/1.0.0/cadastral_boundaries/default/EPSG:' + projection_epsg_no + '/{z}/{y}/{x}.pbf'
                     })
-                }),
+                });
                 boundaryMarkersLayer = new ol.layer.VectorTile({
                     style: boundaryMarkerStyle,
                     renderMode: _renderMode,
@@ -531,87 +551,92 @@
                         format: formatMVT,
                         url: 'https://beta-karttakuva.maanmittauslaitos.fi/vectortiles/wmts/1.0.0/cadastral_boundary_markers/default/EPSG:' + projection_epsg_no + '/{z}/{y}/{x}.pbf'
                     })
-                }),
+                });
+            
+            
                 roadSource = new ol.source.VectorTile({
                     tilePixelRatio: 1, // oversampling when > 1
                     tileGrid: xyzTileGrid,
                     format: formatMVT,
                     url: 'https://beta-karttakuva.maanmittauslaitos.fi/vectortiles/wmts/1.0.0/roads/default/EPSG:' + projection_epsg_no + '/{z}/{y}/{x}.pbf'
-                }),
+                })
 
-                projection = new ol.proj.Projection({
-                    code: 'EPSG:3067',
-                    extent: [-548576, 6291456, 1548576, 8388608]
-                }),
-                extent = [-548576, 6291456, 1548576, 8388608],
-                layers = [
+
+            return [
                     new ol.layer.Tile({
-                        opacity: 0.5,
-                        minResolution: 16,
-                        source: new ol.source.WMTS((km_tk_options))
-                    }),
+                    opacity: 0.5,
+                    minResolution: 16,
+                    source: new ol.source.WMTS((km_tk_options))
+                }),
                     new ol.layer.VectorTile({
-                        style: waterStyle,
-                        renderMode: _renderMode,
-                        maxResolution: 32,
-                        opacity: 0.4,
-                        source: new ol.source.VectorTile({
-                            tilePixelRatio: 1, // oversampling when > 1
-                            tileGrid: xyzTileGrid,
-                            format: formatMVT,
-                            url: 'https://beta-karttakuva.maanmittauslaitos.fi/vectortiles/wmts/1.0.0/water/default/EPSG:' + projection_epsg_no + '/{z}/{y}/{x}.pbf'
-                        })
-                    }),
-                    new ol.layer.VectorTile({
-                        style: landuseStyle,
-                        renderMode: _renderMode,
-                        maxResolution: 32,
-                        opacity: 0.3,
-                        source: new ol.source.VectorTile({
-                            tilePixelRatio: 1, // oversampling when > 1
-                            tileGrid: xyzTileGrid,
-                            format: formatMVT,
-                            url: 'https://beta-karttakuva.maanmittauslaitos.fi/vectortiles/wmts/1.0.0/landuse/default/EPSG:' + projection_epsg_no + '/{z}/{y}/{x}.pbf'
-                        })
-                    }),
-                    parcelLayer,
-                    new ol.layer.VectorTile({
-                        style: baseRoadStyle,
-                        renderMode: _renderMode,
-                        maxResolution: 32,
-                        source: roadSource
-                    }),
-                    new ol.layer.VectorTile({
-                        style: roadStyle,
-                        maxResolution: 16,
-                        source: roadSource
-                    }),
-                    buildingLayer,
-                    new ol.layer.VectorTile({
-                        style: railroadStyle,
-                        renderMode: _renderMode,
-                        maxResolution: 32,
-                        source: new ol.source.VectorTile({
-                            tilePixelRatio: 1, // oversampling when > 1
-                            tileGrid: xyzTileGrid,
-                            format: formatMVT,
-                            url: 'https://beta-karttakuva.maanmittauslaitos.fi/vectortiles/wmts/1.0.0/railroads/default/EPSG:' + projection_epsg_no + '/{z}/{y}/{x}.pbf'
-                        })
-                    }),
-                boundaryLayer,
-                boundaryMarkersLayer
-                ],
-                map = new ol.Map({
-                    layers: layers,
-                    target: 'map',
-                    view: new ol.View({
-                        projection: projection,
-                        //         extent: extent,
-                        center: [384045.9523747833, 6670981.088190043],
-                        zoom: 12
+                    style: waterStyle,
+                    renderMode: _renderMode,
+                    maxResolution: 32,
+                    opacity: 0.4,
+                    source: new ol.source.VectorTile({
+                        tilePixelRatio: 1, // oversampling when > 1
+                        tileGrid: xyzTileGrid,
+                        format: formatMVT,
+                        url: 'https://beta-karttakuva.maanmittauslaitos.fi/vectortiles/wmts/1.0.0/water/default/EPSG:' + projection_epsg_no + '/{z}/{y}/{x}.pbf'
                     })
                 }),
-                v = new Vue({
+                    new ol.layer.VectorTile({
+                    style: landuseStyle,
+                    renderMode: _renderMode,
+                    maxResolution: 32,
+                    opacity: 0.3,
+                    source: new ol.source.VectorTile({
+                        tilePixelRatio: 1, // oversampling when > 1
+                        tileGrid: xyzTileGrid,
+                        format: formatMVT,
+                        url: 'https://beta-karttakuva.maanmittauslaitos.fi/vectortiles/wmts/1.0.0/landuse/default/EPSG:' + projection_epsg_no + '/{z}/{y}/{x}.pbf'
+                    })
+                }),
+                    parcelLayer,
+                    new ol.layer.VectorTile({
+                    style: baseRoadStyle,
+                    renderMode: _renderMode,
+                    maxResolution: 32,
+                    source: roadSource
+                }),
+                    new ol.layer.VectorTile({
+                    style: roadStyle,
+                    maxResolution: 16,
+                    source: roadSource
+                }),
+                    buildingLayer,
+                    new ol.layer.VectorTile({
+                    style: railroadStyle,
+                    renderMode: _renderMode,
+                    maxResolution: 32,
+                    source: new ol.source.VectorTile({
+                        tilePixelRatio: 1, // oversampling when > 1
+                        tileGrid: xyzTileGrid,
+                        format: formatMVT,
+                        url: 'https://beta-karttakuva.maanmittauslaitos.fi/vectortiles/wmts/1.0.0/railroads/default/EPSG:' + projection_epsg_no + '/{z}/{y}/{x}.pbf'
+                    })
+                }),
+                boundaryLayer,
+                boundaryMarkersLayer
+                ];
+        }).then(function (layers) {
+            map = new ol.Map({
+                layers: layers,
+                target: 'map',
+                view: new ol.View({
+                    projection: projection,
+                    center: [384045.9523747833, 6670981.088190043],
+                    zoom: 12
+                })
+            });
+            map.on('pointermove', onMouseMove);
+
+
+            map.on('click', onMouseClick);
+
+            return map;
+        }).then(function (map) {
+            var v = new Vue({
                     el: '#status',
                     data: data
                 }),
@@ -645,61 +670,11 @@
                     }
                 });
 
-
-            function format_kiinteistotunnus(tn) {
-                if (!tn || !tn.length || tn.length != 14) {
-                    return '';
-                }
-
-                var parts = [parseInt(tn.substring(0, 3), 10),
-                             parseInt(tn.substring(3, 6), 10),
-                             parseInt(tn.substring(6, 10), 10),
-                             parseInt(tn.substring(10, 14), 10)];
-                return parts.join('-');
-            }
-
-            function onMouseMove(browserEvent) {
-                var coordinate = browserEvent.coordinate;
-                var pixel = map.getPixelFromCoordinate(coordinate);
-                var el = document.getElementById('status');
-                var msgParts = [];
-                map.forEachFeatureAtPixel(pixel, function (feature) {
-                    if (!feature.get('kiinteistotunnus')) {
-                        return;
-                    }
-                    msgParts.push(format_kiinteistotunnus(feature.get('kiinteistotunnus')) || '');
-                });
-                if (msgParts.length > 1) {
-                    data.kiinteistotunnus = msgParts.join(',');
-                } else {
-                    data.kiinteistotunnus = msgParts[0] || '';
-                }
-                el.style.left = '' + (pixel[0] + 20) + 'px';
-                el.style.top = '' + (pixel[1] - 30) + 'px';
-            }
-
-            function onMouseClick(browserEvent) {
-                var coordinate = browserEvent.coordinate;
-                var pixel = map.getPixelFromCoordinate(coordinate);
-                map.forEachFeatureAtPixel(pixel, function (feature) {
-                    var kt = feature.get('kiinteistotunnus')
-                    if (!kt) {
-                        return;
-                    }
-                    formData.kiinteistotunnus = format_kiinteistotunnus(kt);
-                    selection.selected = feature;
-                    selection.kiinteistotunnus = kt;
-                    parcelLayer.changed();
-
-                });
-            }
-
-
-
-            map.on('pointermove', onMouseMove);
-
-
-            map.on('click', onMouseClick);
+            return {
+                map: map,
+                status: v,
+                tools: f
+            };
 
         });
     </script>
