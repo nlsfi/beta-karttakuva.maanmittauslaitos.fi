@@ -113,7 +113,11 @@
                 buildings: true,
                 boundaries: false,
                 boundaryMarkers: false
-            };
+            },
+            boundaryLayer,
+            boundaryMarkersLayer,
+            buildingsLayer
+        ;
 
         var styles = {
                 "boundary_marker": new ol.style.Style({
@@ -490,20 +494,7 @@
 
             return km_tk_options;
         }).then(function (km_tk_options) {
-            var xyzTileGrid = km_tk_options.tileGrid,
-                buildingLayer = new ol.layer.VectorTile({
-                    style: buildingStyle,
-                    renderMode: _renderMode,
-                    maxResolution: 8,
-                    opacity: 0.7,
-                    source: new ol.source.VectorTile({
-                        tilePixelRatio: 1, // oversampling when > 1
-                        tileGrid: xyzTileGrid,
-                        format: formatMVT,
-                        url: 'https://beta-karttakuva.maanmittauslaitos.fi/vectortiles/wmts/1.0.0/buildings/default/EPSG:' + projection_epsg_no + '/{z}/{y}/{x}.pbf'
-                    })
-                }),
-
+            var xyzTileGrid = km_tk_options.tileGrid,               
                 parcelLayer = new ol.layer.VectorTile({
                     style: parcelStyle,
                     renderMode: _renderMode,
@@ -515,8 +506,24 @@
                         format: formatMVT,
                         url: 'https://beta-karttakuva.maanmittauslaitos.fi/vectortiles/wmts/1.0.0/cadastral_parcels/default/EPSG:' + projection_epsg_no + '/{z}/{y}/{x}.pbf'
                     })
-                }),
-                boundaryLayer = new ol.layer.VectorTile({
+                });
+    
+            
+             buildingLayer = new ol.layer.VectorTile({
+                    style: buildingStyle,
+                    renderMode: _renderMode,
+                    maxResolution: 8,
+                    opacity: 0.7,
+                    source: new ol.source.VectorTile({
+                        tilePixelRatio: 1, // oversampling when > 1
+                        tileGrid: xyzTileGrid,
+                        format: formatMVT,
+                        url: 'https://beta-karttakuva.maanmittauslaitos.fi/vectortiles/wmts/1.0.0/buildings/default/EPSG:' + projection_epsg_no + '/{z}/{y}/{x}.pbf'
+                    })
+                });
+            
+            
+            boundaryLayer = new ol.layer.VectorTile({
                     style: boundaryStyle,
                     renderMode: _renderMode,
                     maxResolution: 16,
@@ -528,7 +535,7 @@
                         format: formatMVT,
                         url: 'https://beta-karttakuva.maanmittauslaitos.fi/vectortiles/wmts/1.0.0/cadastral_boundaries/default/EPSG:' + projection_epsg_no + '/{z}/{y}/{x}.pbf'
                     })
-                }),
+                });
                 boundaryMarkersLayer = new ol.layer.VectorTile({
                     style: boundaryMarkerStyle,
                     renderMode: _renderMode,
@@ -541,7 +548,9 @@
                         format: formatMVT,
                         url: 'https://beta-karttakuva.maanmittauslaitos.fi/vectortiles/wmts/1.0.0/cadastral_boundary_markers/default/EPSG:' + projection_epsg_no + '/{z}/{y}/{x}.pbf'
                     })
-                }),
+                });
+            
+            
                 roadSource = new ol.source.VectorTile({
                     tilePixelRatio: 1, // oversampling when > 1
                     tileGrid: xyzTileGrid,
