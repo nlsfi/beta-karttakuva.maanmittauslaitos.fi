@@ -3,12 +3,12 @@
 
 <head>
     <meta charset="UTF-8">
-    <link href='//fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" media="screen" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+    <link href="https://fonts.googleapis.com/css?family=Titillium+Web" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" media="screen" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
     <style type="text/css">
         body {
-            font-family: 'Roboto', sans-serif;
+            font-family: 'Titillium Web', sans-serif;
             padding: 1rem;
         }
         
@@ -47,38 +47,94 @@
             <li></li>
         </ul>
     </nav>
+    <div class="card-group karttakuva">
 
+
+        <div class="card">
+            <h3 class="card-header">General information</h3>
+            <div class="card-block">
+                <p class="card-text">
+				This page describes a BETA-service of Vector Tiles. <br /><br />
+				
+				This BETA-service is developed and maintained by National Land survey of Finland. <br />
+				The service was developed in order to get a better understanding of how vector tiles work, and to get a better understanding of the possibilities and challenges related to the technology. <br /><br />
+				This page contains information about the Vector Tile service and some demo applications that uses the service. The demo applicatons are published in <a href="https://github.com/nlsfi/beta-karttakuva.maanmittauslaitos.fi">GitHub</a>, so go ahead and test! <br /><br />
+			
+				We look forward to hear you feedback. Please send us an mail on sovellustuki at maanmittauslaitos.fi / topic: Vector tiles <br />
+				The aim is to develop the service furhter based on the recieved feedback.
+        </p>
+	    </div>
+	</div>
+        <div class="card">
+            <h3 class="card-header">Technical information</h3>
+            <div class="card-block">
+                
+                <p class="card-text">
+				The vector tile service is published according to the <a href ="http://www.opengeospatial.org/standards/wmts">WMTS-standard</a>. <br /><br />
+				
+				The metadata of the service is described in the <a href="https://beta-karttakuva.maanmittauslaitos.fi/vectortiles/wmts?service=WMTS&request=GetCapabilities" target="_blank">Proof-of-Concept WMTS Capabilities document</a> for the Vector Tiles Service used in demos. <br /><br />
+				The service contains the following themes as vector tiles layers: Buildings, Landuse, Roads, Water and Railroads from the Topographic Database of NLS Finland. The layers and their properties are named similar to <a href="https://mapzen.com/documentation/vector-tiles/layers/">Open Street Map</a>.  <br />
+				In addition Cadastral parcels, Cadastral boundaries and Cadastral Boundary Markers are available. <br /><br />
+                    Vector content is available on resolutions less than or equal to 16m. 
+                    All raster and vector data is rendered and produced dynamically from databases.<br />
+		    Vector tile database is based on a snapshot from October 2017. The data and the vector tile service is for development use only and may change at any time.<br />
+			The data in the service is <a href=" http://www.maanmittauslaitos.fi/en/opendata-licence-cc40">Open data by National Land Survey of Finland and is licensed under a Creative Commons Attribution 4.0 International License .</a>
+		    
+                </p>
+                <p class="card-text">                  
+                    <a href="http://www.maanmittauslaitos.fi/kartat-ja-paikkatieto/asiantuntevalle-kayttajalle/kartta-ja-paikkatietojen-rajapintapalvelut-1">Info on WMTS background maps </a>
+                    <br/>
+                    <a href="https://github.com/mapbox/vector-tile-spec">Information on vector tiles specification</a> used in these demos and proof-of-concept service.
+                </p>
+            </div>
+        </div>
+    </div>		
+	
     <div class="card-group karttakuva">
 
         <div class="card">
-            <h3 class="card-header">Vector tiles</h3>
+            <h3 class="card-header">Demo applications using the Vector tiles service</h3>
+         
+              
             <div class="card-block">
                 <div>
-                    <a href="https://beta-karttakuva.maanmittauslaitos.fi/demo/ETRS-TM35FIN_vectortiles/index.html?19">Vector tiles on raster background  ETRS-TM35FIN</a>
-                </div>
-
-            </div>
-            <div class="card-block">
-                <div>
-                    <a href="https://beta-karttakuva.maanmittauslaitos.fi/demo/WGS84_Pseudo-Mercator_vectortiles/index.html">Vector tiles on raster background Web Mercator</a>
-                </div>
-
-            </div>
-            
-            <div class="card-block">
-                <div>
-                    <a href="https://beta-karttakuva.maanmittauslaitos.fi/demo/ETRS-TM35FIN_vectortiles_only/index.html">Vector tiles only Map with some client side interaction.</a>
+                    <a href="https://beta-karttakuva.maanmittauslaitos.fi/demo/ETRS-TM35FIN_vectortiles_only/index.html">Pure Vector Tiles Map with some client side interaction.</a> <br />
+					The Map contains Buildings, Roads, Landuse, Water, Cadastral Parcels, Cadastral Boundaries and Cadastral Markers. Clicking on a Parcel highlights all Parcels that belong to same Register Unit.
                 </div>
 
             </div>
             
             <div class="card-block">
                 <div>
-                    <a href="https://beta-karttakuva.maanmittauslaitos.fi/demo/WGS84_Pseudo-Mercator_vectortiles_3D/index.html">3D view of vector tiles on raster background with with some client side property filtering and display.</a>
+                    <a href="https://beta-karttakuva.maanmittauslaitos.fi/demo/WGS84_Pseudo-Mercator_vectortiles_3D/index.html">3D view of vector tiles on raster background with some client side property filtering and display.</a> <br />
+					3D-Map containing Building, Roads, Cadastral Boundaries and Cadastral Markers on a WMTS raster background map. 
+					
                 </div>
 
             </div>
             
+            <div class="card-block">
+                <div>
+                    <a href="https://beta-karttakuva.maanmittauslaitos.fi/demo/ETRS-TM35FIN_vectortiles/index.html?19">Vector tiles on raster background  ETRS-TM35FIN</a> <br />
+					Cadastral Boundaries as Vector tiles on raster background map in ETRS-TM35FIN.
+                </div>
+
+            </div>
+            <div class="card-block">
+                <div>
+                    <a href="https://beta-karttakuva.maanmittauslaitos.fi/demo/WGS84_Pseudo-Mercator_vectortiles/index.html">Vector tiles on raster background Web Mercator</a> <br />
+					Cadastral Boundaries as Vector tiles on raster background map in Web-Mercator.
+                </div>
+
+            </div>
+            <div class="card-block">
+                <div>
+                    <a href="https://github.com/nlsfi/beta-karttakuva.maanmittauslaitos.fi">GitHub repository for demos</a>
+                </div>
+
+            </div>			
+			
+         
             
         </div>
 
@@ -87,7 +143,8 @@
 
             <div class="card-block">
                 <p class="card-text">
-                    Vector tile content overlay on WMTS raster backround maps. These demos show vector tiles in various finnish Gauss-Krüger zones.
+				These demos are a Proof-of-concept for serving Vector Tiles in Gauss-Krüger zones used by the Municipalities in Finland. <br />
+                    The demos contain Vector Tile content overlay on WMTS raster backround maps.
                     <br /> Please zoom in the map to see vector content.
                 </p>
 
@@ -119,41 +176,13 @@
         </div>
     </div>
 
-    <div class="card-group karttakuva">
-
-
-        <div class="card">
-            <h3 class="card-header">Open Data and Open Source</h3>
-            <div class="card-block">
-                <p class="card-text"><a href=" http://www.maanmittauslaitos.fi/en/opendata-licence-cc40">Open data by National Land Survey of Finland is licensed under a Creative Commons Attribution 4.0 International License .</a>
-                </p>
-		<p class="card-text"><a href="https://github.com/nlsfi/beta-karttakuva.maanmittauslaitos.fi">GitHub repository for demos</a>
-                </p>
-	    </div>
-	</div>
-        <div class="card">
-            <h3 class="card-header">General information</h3>
-            <div class="card-block">
-                
-                <p class="card-text">
-                    Vector content is shown on resolutions less than or equal to 16m. 
-                    All raster and vector data is rendered and produced dynamically from databases.<br />
-		    Vector tile database is based on a snapshot from October 2017. The data and  the vector tile service is for development use only and may change at any time.<br />
-		    <a href="https://beta-karttakuva.maanmittauslaitos.fi/vectortiles/wmts?service=WMTS&request=GetCapabilities" target="_blank">A Proof-of-Concept WMTS Capabilities document</a> for the Vector Tiles Service used in demos.
-                </p>
-                <p class="card-text">                  
-                    <a href="http://www.maanmittauslaitos.fi/kartat-ja-paikkatieto/asiantuntevalle-kayttajalle/kartta-ja-paikkatietojen-rajapintapalvelut-1">Info on WMTS background maps </a>
-                    <br/>
-                    <a href="https://github.com/mapbox/vector-tile-spec">Information on vector tiles specification</a> used in these demos and proof-of concept service.
-                </p>
-            </div>
-        </div>
 
 
 
-        <script src="//code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-        <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
 </body>
 
