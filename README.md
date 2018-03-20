@@ -2,7 +2,12 @@
 
 This repository contains source code for demos available at https://beta-karttakuva.maanmittauslaitos.fi
 
-## Service ##
+## Vector Tile Demos ##
+The demos are example mash ups to visualise the vector tiles. 
+No build system is required as the demos do not use most recent JS language constructs.
+Any js libraries load from various cdn providers.
+
+## Vector Tile Service ##
 The vector tiles service used is targeted only for development and proof-of-concept use.
 
 ## Database ##
