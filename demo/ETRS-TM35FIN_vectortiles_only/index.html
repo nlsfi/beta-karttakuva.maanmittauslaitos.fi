@@ -3,10 +3,10 @@
 
 <head>
     <title>Vector tiles</title>
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/openlayers/4.6.4/ol.css">
-    <link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
-    <link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css" />
-    <link href="//fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/openlayers/4.6.4/ol.css">
+    <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
+    <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <style type="text/css">
         html,
         body,
@@ -86,18 +86,18 @@
 
 
 
-    <script src="//cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL"></script>
-    <script src="//cdn.polyfill.io/v2/polyfill.js?features=fetch,Promise"></script>
-    <script src="//unpkg.com/vue"></script>
-    <script src="//cdn.jsdelivr.net/npm/tween.js@16.3.4"></script>
-    <script src="//cdn.jsdelivr.net/npm/color-js@1.0.3"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.5/lodash.js"></script>
-    <script src="//unpkg.com/babel-polyfill@latest/dist/polyfill.min.js"></script>
-    <script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>
+    <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL"></script>
+    <script src="https://cdn.polyfill.io/v2/polyfill.js?features=fetch,Promise"></script>
+    <script src="https://unpkg.com/vue"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tween.js@16.3.4"></script>
+    <script src="https://cdn.jsdelivr.net/npm/color-js@1.0.3"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.5/lodash.js"></script>
+    <script src="https://unpkg.com/babel-polyfill@latest/dist/polyfill.min.js"></script>
+    <script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>
 
-    <script src="//cdnjs.cloudflare.com/ajax/libs/openlayers/4.6.4/ol.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/proj4js/2.4.4/proj4.js"></script>
-    <script src="//epsg.io/3067.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/openlayers/4.6.4/ol.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.4.4/proj4.js"></script>
+    <script src="https://epsg.io/3067.js"></script>
     <script>
         var _renderMode = 'hybrid';
         if (document.location.search == '?vector' || document.location.search == '?image' || document.location.search == '?hybrid') {
@@ -482,7 +482,7 @@
 
 
 
-        fetch('//karttamoottori.maanmittauslaitos.fi/maasto/wmts/1.0.0/WMTSCapabilities.xml').then(function (response) {
+        fetch('https://karttamoottori.maanmittauslaitos.fi/maasto/wmts/1.0.0/WMTSCapabilities.xml').then(function (response) {
             return response.text();
         }).then(function (text) {
             var result = parser.read(text),
