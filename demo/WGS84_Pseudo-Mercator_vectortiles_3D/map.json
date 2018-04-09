@@ -1,23 +1,23 @@
-{
+{		
     "version": 8,
     "pitch": 40,
     "bearing": 20,
     "sources": {
         "boundaries": {
             "type": "vector",
-            "tiles": ["https://beta-karttakuva.maanmittauslaitos.fi/vectortiles/tms/EPSG:900913/cadastral_boundaries/{z}/{x}/{y}/vector.pbf"]
+            "tiles": ["https://beta-karttakuva.maanmittauslaitos.fi/vectortiles/wmts/1.0.0/cadastral_boundaries/default/WGS84_Pseudo-Mercator/{z}/{y}/{x}.pbf"]
         },
         "boundary_markers": {
             "type": "vector",
-            "tiles": ["https://beta-karttakuva.maanmittauslaitos.fi/vectortiles/tms/EPSG:900913/cadastral_boundary_markers/{z}/{x}/{y}/vector.pbf"]
+            "tiles": ["https://beta-karttakuva.maanmittauslaitos.fi/vectortiles/wmts/1.0.0/cadastral_boundary_markers/default/WGS84_Pseudo-Mercator/{z}/{y}/{x}.pbf"]
         },
         "buildings": {
             "type": "vector",
-            "tiles": ["https://beta-karttakuva.maanmittauslaitos.fi/vectortiles/tms/EPSG:900913/buildings/{z}/{x}/{y}/vector.pbf"]
+            "tiles": ["https://beta-karttakuva.maanmittauslaitos.fi/vectortiles/wmts/1.0.0/buildings/default/WGS84_Pseudo-Mercator/{z}/{y}/{x}.pbf"]
         },
         "roads": {
             "type": "vector",
-            "tiles": ["https://beta-karttakuva.maanmittauslaitos.fi/vectortiles/tms/EPSG:900913/roads/{z}/{x}/{y}/vector.pbf"]
+            "tiles": ["https://beta-karttakuva.maanmittauslaitos.fi/vectortiles/wmts/1.0.0/roads/default/WGS84_Pseudo-Mercator/{z}/{y}/{x}.pbf"]
         },
         "taustakartta": {
             "type": "raster",
