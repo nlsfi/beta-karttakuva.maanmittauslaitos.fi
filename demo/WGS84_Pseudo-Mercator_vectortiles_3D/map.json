@@ -30,7 +30,7 @@
     "layers": [
         {
             "id": "background",
-            "type": "background",
+            "type": "background",            
             "paint": {
                 "background-color": "rgba(240,240,240,0.5)"
             }
@@ -42,6 +42,8 @@
                 }, {
             "id": "roads",
             "type": "line",
+            "minzoom": 12,
+            "maxzoom": 19,
             "source": "roads",
             "source-layer": "roads",
             "paint": {
@@ -51,6 +53,8 @@
                 }, {
             "id": "boundaries",
             "type": "line",
+            "minzoom": 12,
+            "maxzoom": 19,
             "source": "boundaries",
             "source-layer": "cadastral_boundaries",
             "paint": {
@@ -60,6 +64,8 @@
                 }, {
             "id": "boundary_markers",
             "type": "circle",
+            "minzoom": 14,
+            "maxzoom": 19,
             "source": "boundary_markers",
             "source-layer": "cadastral_boundary_markers",
             "paint": {
@@ -73,6 +79,8 @@
         {
             "id": "buildings",
             "type": "fill-extrusion",
+            "minzoom": 12,
+            "maxzoom": 19,
             "source": "buildings",
             "source-layer": "buildings",
             "paint": {
