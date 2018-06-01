@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Feature Tiles WMTS</title>
 
@@ -36,11 +37,11 @@
 <body>
     <div id="map" class="map"></div>
     <script>
-   
-        var backgroundWmts = 
-                'https://avoin-karttakuva.maanmittauslaitos.fi/avoin/wmts/1.0.0/WMTSCapabilities.xml',
-            vectorWmts = 
-                'https://beta-karttakuva.maanmittauslaitos.fi/vectortiles/wmts?service=WMTS&request=GetCapabilities&resourceURLtype=xyz_geojson',            
+        var selection = {},
+            backgroundWmts =
+            'https://avoin-karttakuva.maanmittauslaitos.fi/avoin/wmts/1.0.0/WMTSCapabilities.xml',
+            vectorWmts =
+            'https://beta-karttakuva.maanmittauslaitos.fi/vectortiles/wmts?service=WMTS&request=GetCapabilities&resourceURLtype=xyz_geojson',
             map = new ol.Map({
                 layers: [],
                 target: 'map',
@@ -51,84 +52,120 @@
             }),
             matrixSet = 'WGS84_Pseudo-Mercator',
             parser = new ol.format.WMTSCapabilities(),
-            parcelStyle = new ol.style.Style({
-                stroke: new ol.style.Stroke({
-                    color: 'rgba(255,0,0,0.8)',
-                    width: 1,
-                    lineDash: [10, 5]
+            styles = {
+                parcel: new ol.style.Style({
+                    stroke: new ol.style.Stroke({
+                        color: 'rgb(255,0,0)',
+                        width: 1,
+                        lineDash: [10, 5]
+                    })
                 }),
-                fill: new ol.style.Fill({
-                    color: 'rgba(255,0,0, 0.05)'
+                selected: new ol.style.Style({
+                    stroke: new ol.style.Stroke({
+                        color: 'rgb(0,0,255)',
+                        width: 1,
+                        lineDash: [5, 2]
+                    }),
+                    fill: new ol.style.Fill({
+                        color: 'rgba(0,0,128, 0.5)'
+                    })
                 })
-            }),
+            },
             epsg = 'EPSG:3857',
             format = new ol.format.GeoJSON(),
-            proj = ol.proj.get(epsg),
-            layerSources = [
+            proj = ol.proj.get(epsg);
+
+        function parcelStyle(feature) {
+            if (feature.get('kiinteistotunnus') == selection.kiinteistotunnus) {
+                return styles.selected;
+            }
+            return styles.parcel;
+        }
+
+        var layerSources = [
                 fetch(backgroundWmts).then(function (response) {
-                    return response.text();
-                }).then(function (text) {
-                    var result = parser.read(text);
-                    var tk_options = ol.source.WMTS.optionsFromCapabilities(result, {
-                        layer: 'maastokartta',
-                        matrixSet: matrixSet,
-                        requestEncoding: 'REST'
-                    });
-                    var wmtsLayer = new ol.layer.Tile({
-                        opacity: 0.2,
-                        source: new ol.source.WMTS(tk_options)
-                    });
-                    return wmtsLayer;
-                }),
+                return response.text();
+            }).then(function (text) {
+                var result = parser.read(text);
+                var tk_options = ol.source.WMTS.optionsFromCapabilities(result, {
+                    layer: 'maastokartta',
+                    matrixSet: matrixSet,
+                    requestEncoding: 'REST'
+                });
+                var wmtsLayer = new ol.layer.Tile({
+                    opacity: 0.2,
+                    source: new ol.source.WMTS(tk_options)
+                });
+                return wmtsLayer;
+            }),
 
                 fetch(vectorWmts).
                 then(function (response) {
-                    return response.text();
-                }).then(function (text) {
-                    var result = parser.read(text), 
-                        layerOptions = ol.source.WMTS.optionsFromCapabilities(result, {
+                return response.text();
+            }).then(function (text) {
+                var result = parser.read(text),
+                    layerOptions = ol.source.WMTS.optionsFromCapabilities(result, {
                         layer: 'cadastral_parcels',
                         matrixSet: matrixSet,
                         requestEncoding: 'REST'
-                    });                    
-                    var urlTemplate = layerOptions.urls[0].
-                    replace(/\{TileMatrixSet\}/g, matrixSet);
-                    var vecLayer = new ol.layer.VectorTile({
-                        style: parcelStyle,
-                        maxResolution: 64,
-                        source: new ol.source.VectorTile({
-                            projection: epsg,
-                            renderMode: 'vector',    
-                            tilePixelRatio: 1,
-                            tileGrid: layerOptions.tileGrid,
-                            
-                            // should work without - begin
-                            tileLoadFunction: function (tile, url) {
-                                tile.setLoader(function () {
-                                    fetch(url).then(function (response) {
-                                        return response.text();
-                                    }).then(function (text) {
-                                        var features = tile.getFormat().readFeatures(text);
-                                        if (features) {
-                                            tile.setProjection(proj);
-                                            tile.setFeatures(features);
-                                        }
-                                    });
-                                });
-                            },
-                            // should work without - end
-                            
-                            format: format,
-                            url: urlTemplate
-                        })
                     });
-                    return vecLayer;
-                })];
+                var urlTemplate = layerOptions.urls[0].
+                replace(/\{TileMatrixSet\}/g, matrixSet);
+                var vecLayer = new ol.layer.VectorTile({
+                    style: parcelStyle,
+                    maxResolution: 64,
+                    source: new ol.source.VectorTile({
+                        projection: epsg,
+                        //renderMode: 'vector',    
+                        tilePixelRatio: 1,
+                        tileGrid: layerOptions.tileGrid,
+
+                        // should work without - begin
+                        tileLoadFunction: function (tile, url) {
+                            tile.setLoader(function () {
+                                fetch(url).then(function (response) {
+                                    return response.text();
+                                }).then(function (text) {
+                                    var features = tile.getFormat().readFeatures(text);
+                                    if (features) {
+                                        tile.setProjection(proj);
+                                        tile.setFeatures(features);
+                                    }
+                                });
+                            });
+                        },
+                        // should work without - end
+
+                        format: format,
+                        url: urlTemplate
+                    })
+                });
+                return vecLayer;
+            })];
 
 
         Promise.all(layerSources).then(function (fetchedLayers) {
+            
             map.addLayer(fetchedLayers[0]);
             map.addLayer(fetchedLayers[1])
+
+            var parcelLayer = fetchedLayers[1];
+            function onMouseClick(browserEvent) {
+                var coordinate = browserEvent.coordinate;
+                var pixel = map.getPixelFromCoordinate(coordinate);
+                map.forEachFeatureAtPixel(pixel, function (feature) {
+                    var kt = feature.get('kiinteistotunnus')
+                    if (!kt) {
+                        return;
+                    }
+                    selection.kiinteistotunnus = kt;
+                    parcelLayer.changed();
+
+                });
+            }
+
+            map.on('click', onMouseClick);
+
 
         });
     </script>
