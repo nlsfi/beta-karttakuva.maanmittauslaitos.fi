@@ -170,7 +170,7 @@
       var parser = new ol.format.WMTSCapabilities();
 
 
-      var v1 = fetch('https://karttamoottori.maanmittauslaitos.fi/maasto/wmts/1.0.0/WMTSCapabilities.xml').then(function(response) {
+      var v1 = fetch('https://avoin-karttakuva.maanmittauslaitos.fi/avoin/wmts/1.0.0/WMTSCapabilities.xml').then(function(response) {
         return response.text();
       }).then(function(text) {
         var result = parser.read(text);
