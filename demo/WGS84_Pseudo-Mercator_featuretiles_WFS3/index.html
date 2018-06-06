@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>    
+    <title>WFS3 Buildings</title>
+    <link rel="stylesheet" href="https://openlayers.org/en/v4.6.4/css/ol.css" type="text/css">
+    <script src="https://openlayers.org/en/v4.6.4/build/ol.js"></script>
+        <style>
+            .featureInfo {
+                    background-color: white;
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    z-index: 1;
+            }
+            .featureInfoTable tr:first-child td {
+                    font-weight: bold;
+            }
+            td {
+                    padding: 10px;
+                    text-align: left;
+                    border: 1px solid #bbb;
+            }
+
+        </style>
+</head>
+
+    <body>
+        <div id="featureInfo" class="featureInfo"><table id="featureInfoTable" class="featureInfoTable"></table></div>
+        <div id="map" class="map"></div>
+            <script>
+            var featureInfoTable = document.getElementById('featureInfoTable');
+
+            var osmTileGrid = new ol.source.OSM().tileGrid;
+            var origin = osmTileGrid.getOrigin(0);
+            var resolutions = [osmTileGrid.getResolutions()[15]];
+
+            var myLargerTileGrid = new ol.tilegrid.TileGrid({
+                    origin: origin,
+                    resolutions: resolutions,
+                    tileSize: 512
+            });
+
+            var buildingsSource = new ol.source.Vector({
+                    format: new ol.format.GeoJSON(),
+                    strategy: new ol.loadingstrategy.tile(myLargerTileGrid),
+                    url: function(extent, resolution, proj) {
+                    return 'https://beta-karttakuva.maanmittauslaitos.fi/wfs3/collections/buildings/items?limit=15000&bbox='
+                            + ol.proj.transformExtent(extent, 'EPSG:3857', 'EPSG:4326').join(',');
+                    }
+            });
+
+            var buildingStyle = new ol.style.Style({
+                    stroke: new ol.style.Stroke({
+                            color: 'blue',
+                            width: 1
+                    }),
+                    fill: new ol.style.Fill({
+                            color: 'rgba(0, 0, 255, 0.2)'
+                    })
+            });
+
+            var buildingsLayer = new ol.layer.Vector({
+                    source: buildingsSource,
+                    style: buildingStyle,
+                    maxResolution: 11
+            });
+
+            var parcelsSource = new ol.source.Vector({
+                    format: new ol.format.GeoJSON(),
+                    strategy: new ol.loadingstrategy.tile(myLargerTileGrid),
+                    url: function(extent, resolution, proj) {
+                            return 'https://beta-karttakuva.maanmittauslaitos.fi/wfs3/collections/parcels/items?limit=15000&bbox='
+                                    + ol.proj.transformExtent(extent, 'EPSG:3857', 'EPSG:4326').join(',');
+                    }
+            });
+
+            var parcelsStyle = new ol.style.Style({
+                    stroke: new ol.style.Stroke({
+                            color: 'rgba(255, 0, 0, 0.75)',
+                            width: 1,
+                            lineDash: [8, 8]
+                    }),
+            });
+
+            var parcelsLayer = new ol.layer.Vector({
+                    source: parcelsSource,
+                    style: parcelsStyle,
+                    maxResolution: 11
+            });
+
+            var map = new ol.Map({
+                    layers: [
+                            buildingsLayer,
+                            parcelsLayer
+                    ],
+                    target: 'map',
+                    view: new ol.View({
+                            center: ol.proj.fromLonLat([24.95, 60.17]),
+                            zoom: 15,
+                            minZoom: 8,
+                            maxZoom: 20
+                    })
+            });
+
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                            var parser = new ol.format.WMTSCapabilities();
+                    var capabilities = parser.read(this.responseText);
+                    var opts = ol.source.WMTS.optionsFromCapabilities(capabilities, {
+                        layer: 'taustakartta',
+                        matrixSet: 'WGS84_Pseudo-Mercator',
+                        requestEncoding: 'REST'
+                    });
+                    var wmtsLayer = new ol.layer.Tile({
+                        source: new ol.source.WMTS(opts)
+                    });
+                            wmtsLayer.setZIndex(-1);
+                    map.addLayer(wmtsLayer);
+                }
+            };
+            xhttp.open("GET", "http://karttamoottori.maanmittauslaitos.fi/maasto/wmts/1.0.0/WMTSCapabilities.xml", true);
+            xhttp.send();
+
+            var select = new ol.interaction.Select({layers: [parcelsLayer]});
+            map.addInteraction(select);
+            select.on('select', function(e) {
+                    for (var i = 0, len = featureInfoTable.rows.length; i < len; ++i) {
+                        featureInfoTable.deleteRow(-1);
+                    }
+                    if (e.selected.length > 0) {
+                        var feature = e.selected[0];
+                        var headerRow = featureInfoTable.insertRow(0);
+                        var dataRow = featureInfoTable.insertRow(1);
+                        var keys = feature.getKeys();
+                        var geometryName = feature.getGeometryName();
+                        
+                        for (var i = 0, len = keys.length; i < len; ++i) {
+                                var k = keys[i];
+                                var v;
+                                if (k === geometryName) {
+                                    k = 'kiinteistotunnus';
+                                    v = String(feature.getId());
+                                    
+                                    while (v.length < 14) {
+                                        v = '0' + v;
+                                    }
+                                } else {
+                                    v = feature.get(k);
+                                }
+                                
+                                headerRow.insertCell(i).innerHTML = k;
+                                dataRow.insertCell(i).innerHTML = v;
+                        }
+                    }
+            });
+            </script>
+    </body>
+</html>
+
