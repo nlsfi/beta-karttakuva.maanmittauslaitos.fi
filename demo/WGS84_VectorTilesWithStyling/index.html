@@ -78,7 +78,7 @@
     <b-tabs pills>
         <b-tab title="Display" active>
         <div>
-            <b-button id="1" size="sm" variant="info" v-on:click="toggle_boundaries">
+            <b-button size="sm" variant="info" v-on:click="toggle_boundaries">
                 <span v-if="boundaries">Hide Cadastral Boundaries</span>
                 <span v-if="!boundaries">Show Cadastral Boundaries</span>
             </b-button>
@@ -89,58 +89,53 @@
                 <span v-if="!buildings">Show Buildings</span>
             </b-button> <br>
         </div>
-                    <div>
-            <b-button id="1" size="sm" variant="info" v-on:click="toggle_roads">
-                <span v-if="boundaries">Hide Cadastral Boundaries</span>
-                <span v-if="!boundaries">Show Cadastral Boundaries</span>
-            </b-button>
-        </div>
+
         </b-tab>
         
         <b-tab title="Styling">
             <b-tabs>
                 <b-tab title="Buildings" active>
                     <td>Colour of commercial buildings:</td>
-                            <input id="commercialBuildings" type='color' class='basic' value='#ffffff' 
+                            <input id="commercialBuildings" type='color' class='basic' value='?' 
                                    v-model="commercialColorQuery"/>               
                      <br/>
 
                     <td>Colour of industrial buildings:</td>
-                            <input id="industrialBuildings" type='color' class='basic' value='#ffffff' 
+                            <input id="industrialBuildings" type='color' class='basic' value='?' 
                                    v-model="industrialColorQuery"/>        
                     <br/> 
 
                     <td>Colour of residential buildings:</td>
-                            <input id="residentialBuildings" type='color' class='basic' value='#ffffff' 
+                            <input id="residentialBuildings" type='color' class='basic' value=? 
                                    v-model="residentialColorQuery"/>    
                 </b-tab>
                 <b-tab title="Landuse">
                     <td>Colour of Farmlands:</td>
-                        <input id="parks" type='color' class='basic' value='#ffffff' 
+                        <input id="parks" type='color' class='basic' value='?'  
                             v-model="farmlandColorQuery"/>               
                     <br/>
                     <td>Colour of Parks:</td>
                     <br/>
-                        <input id="parks" type='color' class='basic' value='#ffffff' 
+                        <input id="parks" type='color' class='basic' value='?' 
                             v-model="parkColorQuery"/>  
                 </b-tab>
                 <b-tab title="Parcels">
                     <td>Colour of  Parcels:</td>
-                        <input id="parcels" type="color" class="basic" value="ffffff"
+                        <input id="parcels" type="color" class="basic" value=
                            v-model="parcelColorQuery">
                     <td>Colour of Selected Parcels:</td>
-                        <input id="parcels" type="color" class="basic" value="ffffff"
+                        <input id="parcels" type="color" class="basic" value='?' 
                            v-model="selectedParcelColorQuery">
                 </b-tab>
                 </b-tabs>
         </b-tab>
      </b-tabs>   
         <hr />
-        <div>{{ kiinteistotunnus }}</div>
-        <!--div>{{ nimi }}</div-->
+      <!--  <div>{{ kiinteistotunnus }}</div>
+        <!--div>{{ nimi }}</div
         <div v-if="kiinteistotunnus !== ''">
             <b-button size="sm" variant="link" v-on:click="info">Linked Data...</b-button>
-        </div>
+        </div> -->
     </div>
     <div id="map" class="map"></div>
 
@@ -153,7 +148,7 @@
         var selection = {},
                 
             backgroundWmts =
-            'https://avoin-karttakuva.maanmittauslaitos.fi/avoin/wmts/1.0.0/WMTSCapabilities.xml',
+            'https://avoin-karttakuva.maanmittauslaitos.fi/avoin/wssss/1.0.0/WMTSCapabilities.xml',
             data = {
                 kiinteistotunnus: '?'
             },
@@ -202,6 +197,17 @@
                         angle: 0
                     })
                 }),
+                "parcel": new ol.style.Style({
+                   stroke: new ol.style.Stroke({
+                       color: 'rgba(255,0,0,0.7)',
+                       width: 1,
+                       lineDash: [10, 5]
+                   }),
+
+                fill: new ol.style.Fill({
+                    color: 'rgba(255,0,0, 0.05)'
+                })
+            }),
                 "selected_parcel": new ol.style.Style({
                     fill: new ol.style.Fill({
                         color: 'rgba(0,0,255,1)'
@@ -401,17 +407,7 @@
                     width: 2
                 })
             }),
-            style_parcel = new ol.style.Style({
-                   stroke: new ol.style.Stroke({
-                       color: 'rgba(255,0,0,0.7)',
-                       width: 1,
-                       lineDash: [10, 5]
-                   }),
 
-                fill: new ol.style.Fill({
-                    color: 'rgba(255,0,0, 0.05)'
-                })
-            }),
             style_esbo = new ol.style.Style({
                 stroke: new ol.style.Stroke({
                     color: 'rgba(255,0,0,0.8)',
@@ -480,7 +476,7 @@
                             return style_esbo;
                        }*/
 
-            return style_parcel;
+            return styles.parcel;
         }
 
 
@@ -545,17 +541,14 @@
         }
 
 
-
         fetch('https://avoin-karttakuva.maanmittauslaitos.fi/avoin/wmts/1.0.0/WMTSCapabilities.xml').then(function (response) {
             return response.text();
         }).then(function (text) {
             var result = parser.read(text),
                 km_tk_options = ol.source.WMTS.optionsFromCapabilities(result, {
-                    layer: 'taustakartta',
+                    layer: 'maastokartta',
                     matrixSet: 'ETRS-TM35FIN'
                 });
-
-
 
             return km_tk_options;
         }).then(function (km_tk_options) {
@@ -694,6 +687,27 @@
                     zoom: 12
                 })
             });
+            
+            var xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                                var parser = new ol.format.WMTSCapabilities();
+                        var capabilities = parser.read(this.responseText);
+                        var opts = ol.source.WMTS.optionsFromCapabilities(capabilities, {
+                            layer: 'taustakartta',
+                            matrixSet: 'WGS84_Pseudo-Mercator',
+                            requestEncoding: 'REST'
+                        });
+                        var wmtsLayer = new ol.layer.Tile({
+                            source: new ol.source.WMTS(opts)
+                        });
+                                wmtsLayer.setZIndex(-1);
+                        map.addLayer(wmtsLayer);
+                    }
+                };
+            xhttp.open("GET", "https://avoin-karttakuva.maanmittauslaitos.fi/avoin/wmts/1.0.0/WMTSCapabilities.xml", true);
+            xhttp.send();
+            
             map.on('pointermove', onMouseMove);
 
 
@@ -761,7 +775,7 @@
                                 parcelLayer.changed()
                             },
                             parcelColorQuery: function() {
-                                style_parcel = new ol.style.Style({
+                                styles.parcel = new ol.style.Style({
                                     fill: new ol.style.Fill({
                                         color: this.parcelColorQuery
                                     }),
