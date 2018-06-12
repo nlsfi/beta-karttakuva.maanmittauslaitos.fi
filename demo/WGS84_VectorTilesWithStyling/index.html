@@ -121,8 +121,8 @@
                 </b-tab>
                 <b-tab title="Parcels">
                     <td>Colour of  Parcels:</td>
-                        <input id="parcels" type="color" class="basic" value=
-                           v-model="parcelColorQuery">
+                        <input id="parcels" type="color" class="basic" value='?'
+                           v-model="parcelColorQuery"> 
                     <td>Colour of Selected Parcels:</td>
                         <input id="parcels" type="color" class="basic" value='?' 
                            v-model="selectedParcelColorQuery">
@@ -687,27 +687,7 @@
                     zoom: 12
                 })
             });
-            
-            var xhttp = new XMLHttpRequest();
-                xhttp.onreadystatechange = function() {
-                    if (this.readyState == 4 && this.status == 200) {
-                                var parser = new ol.format.WMTSCapabilities();
-                        var capabilities = parser.read(this.responseText);
-                        var opts = ol.source.WMTS.optionsFromCapabilities(capabilities, {
-                            layer: 'taustakartta',
-                            matrixSet: 'WGS84_Pseudo-Mercator',
-                            requestEncoding: 'REST'
-                        });
-                        var wmtsLayer = new ol.layer.Tile({
-                            source: new ol.source.WMTS(opts)
-                        });
-                                wmtsLayer.setZIndex(-1);
-                        map.addLayer(wmtsLayer);
-                    }
-                };
-            xhttp.open("GET", "https://avoin-karttakuva.maanmittauslaitos.fi/avoin/wmts/1.0.0/WMTSCapabilities.xml", true);
-            xhttp.send();
-            
+                      
             map.on('pointermove', onMouseMove);
 
 
@@ -759,7 +739,6 @@
                                     })
                                 })
                                 buildingLayer.changed()
-                                // farmland color '#ffcc00'
                             },
                             selectedParcelColorQuery: function() {
                                 styles.selected_parcel = new ol.style.Style({
