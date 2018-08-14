@@ -322,6 +322,15 @@
                     })
                 })
             },
+            style_landuse_other = new ol.style.Style({
+                fill: new ol.style.Fill({
+                    color: 'rgba(227, 250, 182, 1)'
+                }),
+                stroke: new ol.style.Stroke({
+                	color: '#004000',
+                    width: 1
+                })
+            }),
             style_road_base = new ol.style.Style({
 
                 stroke: new ol.style.Stroke({
@@ -450,7 +459,7 @@
         }
 
         function landuseStyle(feature) {
-            return landuse_styles[feature.getProperties().kind] || style_simple;
+            return landuse_styles[feature.getProperties().kind] || style_landuse_other;
         }
 
         function boundaryStyle(feature) {
