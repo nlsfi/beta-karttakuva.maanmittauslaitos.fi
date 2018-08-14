@@ -59,36 +59,44 @@
 				This BETA-service is developed and maintained by National Land Survey of Finland. <br />
 				The service was developed in order to get a better understanding of how vector tiles work, and to get a better understanding of the possibilities and challenges related to the technology. <br /><br />
 				This page contains information about the Vector Tile service and some demo applications that uses the service. The demo applicatons are published in <a href="https://github.com/nlsfi/beta-karttakuva.maanmittauslaitos.fi">GitHub</a>, so go ahead and test! <br /><br />
-			
-				We look forward to hear you feedback. Please send us an mail on sovellustuki at maanmittauslaitos.fi / topic: Vector tiles <br />
-				The aim is to develop the service further based on the received feedback.
-                </p>
+		
+            </div>
+        </div>
+        <div class="card">
+            <h3 class="card-header">Vector Tiles Service</h3>
+            <div class="card-block">
+                
                 <p class="card-text">
-                <a href="https://github.com/nlsfi/beta-karttakuva.maanmittauslaitos.fi/blob/master/CHANGES.md">Info on events, issues and releases</a>
+				The vector and feature tiles are published according to the <a href ="http://www.opengeospatial.org/standards/wmts">WMTS-standard</a> and
+                        WFS3-specifications. <br /><br />
+				
+				The metadata of the service is described in the <a href="https://beta-karttakuva.maanmittauslaitos.fi/vectortiles/wmts?service=WMTS&request=GetCapabilities" target="_blank">Proof-of-Concept WMTS Capabilities document</a> for the Vector Tiles Service used in demos. <br /><br />
+                    
+                Vector content is available on resolutions less than or equal to 16m.                 
+                </p>
+                <p class="card-text">                                 
+                    <br/>
+                    <a href="https://github.com/mapbox/vector-tile-spec">Information on vector tiles specification</a> used in these demos and proof-of-concept service.
                 </p>
             </div>
         </div>
         <div class="card">
-            <h3 class="card-header">Technical information</h3>
+            <h3 class="card-header">Database Information</h3>
             <div class="card-block">
-                
-                <p class="card-text">
-				The vector tile service is published according to the <a href ="http://www.opengeospatial.org/standards/wmts">WMTS-standard</a>. <br /><br />
-				
-				The metadata of the service is described in the <a href="https://beta-karttakuva.maanmittauslaitos.fi/vectortiles/wmts?service=WMTS&request=GetCapabilities" target="_blank">Proof-of-Concept WMTS Capabilities document</a> for the Vector Tiles Service used in demos. <br /><br />
-				The service contains the following themes as vector tiles layers: Buildings, Landuse, Roads, Water and Railroads from the Topographic Database of NLS Finland. The layers and their properties are named similar to <a href="https://mapzen.com/documentation/vector-tiles/layers/">Open Street Map</a>.  <br />
+            <p class="card-text">    
+    				The database used in demos and services contains the following themes : Buildings, Landuse, Roads, Water and Railroads from the Topographic Database of NLS Finland. 
+                The features and their properties are named similar to <a href="https://mapzen.com/documentation/vector-tiles/layers/">Open Street Map</a>.  <br />
 				In addition Cadastral parcels, Cadastral boundaries and Cadastral Boundary Markers are available. <br /><br />
-                    Vector content is available on resolutions less than or equal to 16m. 
+                </p>
+            <p class="card-text">
+	
                     All raster and vector data is rendered and produced dynamically from databases.<br />
-		    Vector tile database is based on a snapshot from October 2017. The data and the vector tile service is for development use only and may change at any time.<br />
+		            Vector tile database is based on a snapshot from October 2017. 
+                    The data and the vector tile service is for development use only and may change at any time.<br />
 			The data in the service is <a href=" http://www.maanmittauslaitos.fi/en/opendata-licence-cc40">Open data by National Land Survey of Finland and is licensed under a Creative Commons Attribution 4.0 International License .</a>
 		    
                 </p>
-                <p class="card-text">                  
-                    <a href="http://www.maanmittauslaitos.fi/kartat-ja-paikkatieto/asiantuntevalle-kayttajalle/kartta-ja-paikkatietojen-rajapintapalvelut-1">Info on WMTS background maps </a>
-                    <br/>
-                    <a href="https://github.com/mapbox/vector-tile-spec">Information on vector tiles specification</a> used in these demos and proof-of-concept service.
-                </p>
+               
             </div>
         </div>
     </div>		
@@ -96,15 +104,9 @@
     <div class="card-group karttakuva">
 
         <div class="card">
-            <h3 class="card-header">Demo applications using the Vector tiles service</h3>
+            <h3 class="card-header">Vector Tile Demos</h3>
             
-            <div class="card-block">
-                <div>
-                    <a href=" https://beta-karttakuva.maanmittauslaitos.fi/demo/WGS84_Pseudo-Mercator_featuretiles_WFS3/index.html">GeoJSON Features from a WFS3 service Web Mercator</a> <br /> 
-                                  Cadastral Boundaries, the id of the cadastre, and the date of the creation and the date of last modification in a cadastre. The WMTS raster map is used as theS backround.     
-                </div>
-                
-            </div>
+          
               
             <div class="card-block">
                 <div>
@@ -138,14 +140,7 @@
                 </div>
                 
             </div>
-            
-            <div class="card-block">
-                <div>
-                    <a href="https://beta-karttakuva.maanmittauslaitos.fi/demo/WGS84_Pseudo-Mercator_featuretiles_WMTS/index.html">GeoJSON Feature tiles on raster background Web Mercator</a> <br />
-                                        Cadastral Parcels as Vector tiles on a WMTS raster background map.  
-                </div> 
-                
-            </div>
+                     
             
             <div class="card-block">
                 <div>
@@ -161,6 +156,27 @@
 
             </div>			
     
+        </div>
+         <div class="card">
+            <h3 class="card-header">Feature Service Demos</h3>
+             
+               <div class="card-block">
+                <div>
+                    <a href=" https://beta-karttakuva.maanmittauslaitos.fi/demo/WGS84_Pseudo-Mercator_featuretiles_WFS3/index.html">GeoJSON Features from a WFS3 service Web Mercator</a> <br /> 
+                                  Cadastral Boundaries, the id of the cadastre, and the date of the creation and the date of last modification in a cadastre. The WMTS raster map is used as the background.     
+                </div>
+                
+            </div>
+             
+                <div class="card-block">
+                <div>
+                    <a href="https://beta-karttakuva.maanmittauslaitos.fi/demo/WGS84_Pseudo-Mercator_featuretiles_WMTS/index.html">GeoJSON Feature tiles from WMTS tile server on raster background</a> <br />
+                                        Cadastral Parcels as Feature tiles on a WMTS raster background map.  
+                </div> 
+                
+            </div>
+             
+            
         </div>
 
         <div class="card">
@@ -201,6 +217,24 @@
         </div>
     </div>
 
+    
+    <div class="card-group karttakuva">
+        
+        <div class="card">
+            <h3 class="card-header">Feedback and Contact information</h3>
+            <div class="card-block">
+                <p class="card-text">
+				This BETA-service is developed and maintained by National Land Survey of Finland.  <br /><br />
+				
+				We look forward to hear you feedback. Please send us an mail on sovellustuki at maanmittauslaitos.fi / topic: Vector tiles <br />
+				The aim is to develop the service further based on the received feedback.
+                </p>
+                <p class="card-text">
+                <a href="https://github.com/nlsfi/beta-karttakuva.maanmittauslaitos.fi/blob/master/CHANGES.md">Info on events, issues and releases</a>
+                </p>
+            </div>
+        </div>
+    </div>
 
 
 
