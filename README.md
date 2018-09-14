@@ -2,6 +2,9 @@
 
 This repository contains source code for demos available at https://beta-karttakuva.maanmittauslaitos.fi
 
+## National Land Survey of Finland Background Map as Vector Tiles
+Proof-of-Concept vector tile map covering Finland. This is a summer-of-code project by @Postilaatikko
+
 ## Vector Tile Demos ##
 The demos are example mash ups to visualise the vector tiles. 
 No build system is required as the demos do not use most recent JS language constructs.
