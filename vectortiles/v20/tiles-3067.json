@@ -1,0 +1,77 @@
+{
+    "tilejson": "2.2.0",
+    "id": "NLS-Basemap",
+    "name": "NLS Basemap",
+    "version": "0.9.0",
+    "description": "",
+    "attribution": "NLS 2019",
+    "format": "pbf",
+    "tiles": [
+        "https://beta-karttakuva.maanmittauslaitos.fi/vt/backgroundmap/wmts/1.0.0/taustakartta/default/v20/ETRS-TM35FIN/{z}/{y}/{x}.pbf"
+    ],
+    "bounds": [
+        -180,
+        -85.05112877980659,
+        180,
+        85.0511287798066
+    ],
+    "center": [
+        24.7481,
+        60.3219,
+        8.56
+    ],
+    "minzoom": 0,
+    "maxzoom": 11,
+"vector_layers" : [ {
+    "id" : "symboli",
+    "fields" : { }
+  }, {
+    "id" : "hallintoalue",
+    "fields" : { }
+  }, {
+    "id" : "maasto_viiva",
+    "fields" : { }
+  }, {
+    "id" : "vesisto_alue",
+    "fields" : { }
+  }, {
+    "id" : "poi",
+    "fields" : { }
+  }, {
+    "id" : "rakennelma",
+    "fields" : { }
+  }, {
+    "id" : "maastoaluereuna",
+    "fields" : { }
+  }, {
+    "id" : "liikenne",
+    "fields" : { }
+  }, {
+    "id" : "maankaytto",
+    "fields" : { }
+  }, {
+    "id" : "vesisto_viiva",
+    "fields" : { }
+  }, {
+    "id" : "maasto_alue",
+    "fields" : { }
+  }, {
+    "id" : "korkeus",
+    "fields" : { }
+  }, {
+    "id" : "nimisto",
+    "fields" : { }
+  }, {
+    "id" : "maasto_piste",
+    "fields" : { }
+  }, {
+    "id" : "rakennus",
+    "fields" : { }
+  }, {
+    "id" : "alueraja",
+    "fields" : { }
+  }, {
+    "id" : "selite",
+    "fields" : { }
+  } ]
+}
