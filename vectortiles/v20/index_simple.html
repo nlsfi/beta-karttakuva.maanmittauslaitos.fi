@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset='utf-8' />
+  <title>Vektoritiilikartta</title>
+  <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+  <script src='https://beta-karttakuva.maanmittauslaitos.fi/vectortiles/v20/js/mapbox/mapbox-gl.js'></script>
+  <link href='https://beta-karttakuva.maanmittauslaitos.fi/vectortiles/v20/js/mapbox/mapbox-gl.css' rel='stylesheet' />
+  <link href="https://fonts.googleapis.com/css?family=Titillium+Web" rel="stylesheet">
+  <style>
+    h1,
+    h2,
+    h3 {
+      font-weight: normal;
+      font-size: 12px;
+    }
+    .logo { 
+      height: 32px;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Titillium Web', sans-serif;
+      font-size: 12px;
+    }
+
+    #map {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 100%;
+    }
+
+    .button {
+      display: inline-block;
+      position: relative;
+      cursor: pointer;
+      width: 30%;
+      padding: 8px;
+      border-radius: 3px;
+      margin-top: 10px;
+      font-size: 12px;
+      text-align: center;
+      color: black;
+      background: white;
+      border: 1px solid hsl(200, 80%, 30%);
+      ;
+      font-weight: bold;
+      font-family: 'Titillium Web', sans-serif;
+    }
+
+    #cards {
+      position: absolute;
+      top: 30%;
+      right: 0;
+      bottom: 0;
+      width: 30%;
+      overflow: auto;
+    }
+
+    .card {
+      border: 1px solid rgba(240, 240, 240, 1.0);
+      background: rgba(255, 255, 255, 1.0);
+      padding: 3px;
+      cursor: pointer;
+      color: black;
+      font-family: 'Titillium Web', sans-serif;
+    }
+
+    #features {
+      font-family: 'Titillium Web', sans-serif;
+      color: black;
+max-height: 20vw;
+    overflow: scroll;
+    }
+  </style>
+</head>
+
+<body>
+  <div id='map'></div>
+
+  <div id="cards">
+    <div id="title" class="card">
+	<img class="logo" src="mml-logo_fi.svg" alt="Logo">
+	<h1>Vektoritiilikartta</h1>
+    </div>
+    <div id="langSelection" class="card">
+      <h3>Nimistön kohteiden kieli</h3>
+      <input type="radio" id="fin" name="lang" value="fin" checked>
+      <label for="fin">suomi</label><br>
+      <input type="radio" id="swe" name="lang" value="swe">
+      <label for="swe">svenska</label><br>
+      <input type="radio" id="sme" name="lang" value="sme">
+      <label for="sme">davvisámegiella</label>
+    </div>
+    <div id="styleSelection" class="card">
+      <h3>Kartan tyylin valinta</h3>
+      <input type="radio" id="backgroundmapwhite" name="mapv" value="backgroundmapwhite" checked
+        href="https://beta-karttakuva.maanmittauslaitos.fi/vectortiles/v20/backgroundmap-white-3857.json">
+      <label for="backgroundmapwhite">vektoritiilikartta</label><br>
+      <input type="radio" id="backgroundmap" name="mapv" value="backgroundmap" 
+        href="https://beta-karttakuva.maanmittauslaitos.fi/vectortiles/v20/backgroundmap-3857.json">
+      <label for="backgroundmap">vektoritiilikartta (vihreä tausta)</label><br>
+      <input type="radio" id="taustakartta" name="mapv" value="taustakartta"
+        href="https://beta-karttakuva.maanmittauslaitos.fi/vectortiles/v20/taustakartta-3857.json">
+      <label for="taustakartta">taustakartta</label><br>
+    </div>
+    <div id="contentSelection" class="card">
+      <h3>Kartan kohteiden valinta</h3>
+      <input type="checkbox" id="korkeus_viiva" name="content" value="korkeus_viiva" checked>
+      <label for="korkeus_viiva">korkeuskäyrät</label><br>
+
+    </div>
+    <div id="contentDebug" class="card">
+      <h3>Karttatiilijako</h3>
+      <input type="checkbox" id="tileBoundaries" name="debug" value="tileBoundaries">
+      <label for="tileBoundaries">tiilirajat</label><br>
+    </div>
+    <div id="featureCollection" class="card">
+      <h3>Kohdetiedot</h3>
+      <pre id="features">valitse kohde kartalta</pre>
+    </div>
+  </div>
+  <script>
+    var map = new mapboxgl.Map({
+      container: 'map', // container id
+      hash: true,
+      style: 'https://beta-karttakuva.maanmittauslaitos.fi/vectortiles/v20/backgroundmap-white-3857.json', // stylesheet location
+      center: [24.945, 60.201], // starting position [lng, lat]
+      zoom: 13.81 // starting zoom
+    });
+    // #13.81/60.16113/24.93353
+
+    map.addControl(new mapboxgl.NavigationControl());
+
+    map.on('click', function (e) {
+      var features = map.queryRenderedFeatures(e.point);
+
+      // Limit the number of properties we're displaying for
+      // legibility and performance
+      var displayProperties = [
+        'type',
+        'properties',
+        'id',
+        'source',
+        'sourceLayer'
+      ];
+
+      var displayFeatures = features.map(function (feat) {
+        var displayFeat = {};
+        displayProperties.forEach(function (prop) {
+          displayFeat[prop] = feat[prop];
+        });
+        displayFeat['layer'] = feat['layer']['id']
+        return displayFeat;
+      });
+
+      document.getElementById('features').innerHTML = JSON.stringify(
+        displayFeatures,
+        null,
+        2
+      );
+    });
+
+
+    function formTextField(lang_list) {
+      var text_field = ["coalesce"];
+      text_field = text_field.concat(lang_list.map(function (lang) {
+        return ["get", "nimi_" + lang];
+      }));
+      return text_field;
+    };
+
+    document
+      .getElementsByName('content').forEach(e => {
+        e.addEventListener('click', function (event) {
+          var part = event.target.id, checked = event.target.checked;
+          map.setLayoutProperty(part, 'visibility', checked ? 'visible' : 'none');
+        });
+      });
+
+    document
+      .getElementsByName('lang').forEach(e => {
+        e.addEventListener('click', function (event) {
+          var language = event.target.id;
+          var coalesce_list = [];
+          if (language === 'fin') {
+            coalesce_list = formTextField(['fin', 'swe', 'sme']);
+          } else if (language === 'swe') {
+            coalesce_list = formTextField(['swe', 'fin', 'sme']);
+          } else if (language === 'sme') {
+            coalesce_list = formTextField(['sme', 'fin', 'swe']);
+          }
+
+          map.setLayoutProperty('nimisto_kunnat', 'text-field', coalesce_list);
+          map.setLayoutProperty('nimisto-maasto-vedet', 'text-field', coalesce_list);
+          map.setLayoutProperty('nimisto', 'text-field', coalesce_list);
+          map.setLayoutProperty('nimisto_luonnopuistot', 'text-field', coalesce_list);
+        })
+      });
+
+    document
+      .getElementsByName('mapv').forEach(e => {
+        e.addEventListener('click', function (event) {
+          var part = event.target.id, checked = event.target.checked,
+            styleJson = event.target.getAttribute('href');
+          if (checked) {
+            map.setStyle(styleJson);
+          }
+        })
+      });
+
+    document
+      .getElementsByName('debug').forEach(e => {
+        e.addEventListener('click', function (event) {
+          var part = event.target.id, checked = event.target.checked;
+	  switch(part) {
+	  case 'tileBoundaries':
+	     map.showTileBoundaries=checked;
+	     break;
+	  }
+        });
+      });
+
+
+
+  </script>
+
+</body>
+
+</html>
