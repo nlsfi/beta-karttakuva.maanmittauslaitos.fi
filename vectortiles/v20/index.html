@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset='utf-8' />
+  <title>Vektoritiilikartta</title>
+  <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+  <script src='https://beta-karttakuva.maanmittauslaitos.fi/vectortiles/v20/js/mapbox/mapbox-gl.js'></script>
+  <link href='https://beta-karttakuva.maanmittauslaitos.fi/vectortiles/v20/js/mapbox/mapbox-gl.css' rel='stylesheet' />
+  <link href="https://fonts.googleapis.com/css?family=Titillium+Web" rel="stylesheet">
+  <style>
+    h1,
+    h2,
+    h3 {
+      font-weight: normal;
+      font-size: 12px;
+    }
+
+    .logo {
+      height: 32px;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Titillium Web', sans-serif;
+      font-size: 12px;
+    }
+
+    #map {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 100%;
+    }
+
+    .button {
+      display: inline-block;
+      position: relative;
+      cursor: pointer;
+      width: 30%;
+      padding: 3px;
+      border-radius: 3px;
+      margin-top: 3px;
+      font-size: 12px;
+      text-align: center;
+      color: black;
+      background: white;
+      border: 1px solid hsl(200, 80%, 30%);
+      font-weight: bold;
+      font-family: 'Titillium Web', sans-serif;
+    }
+
+    #cards_right {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      width: 30%;
+      overflow: auto;
+    }
+
+    #cards_left {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 30%;
+      overflow: auto;
+    }
+
+    .card {
+      border: 1px solid rgba(240, 240, 240, 1.0);
+      background: rgba(255, 255, 255, 1.0);
+      padding: 3px;
+      cursor: pointer;
+      color: black;
+      font-family: 'Titillium Web', sans-serif;
+    }
+
+    #features {
+      font-family: 'Titillium Web', sans-serif;
+      color: black;
+max-height: 20vw;
+    overflow: scroll;
+    }
+
+    .geocoding_similar {
+      margin-right: 3px;
+    }
+
+    div#geocoding_similar {
+      height: 32px;
+    }
+
+    .geocoding_result {
+      padding: 3px;
+      display: inline-block;
+    }
+  </style>
+</head>
+
+<body>
+  <div id='map'></div>
+
+  <div id="cards_left">
+    <div id="geocoding" class="card">
+      <h3>Paikannimihaku</h3>
+      <div id="geocoding_results"></div>
+      <input type="text" id="geocoding_search" name="search" autofocus>
+      <button class="button" id="geocoding_reset">Tyhjennä&nbsp;haku</button>
+      <hr />
+      <div id="geocoding_similar"></div>
+    </div>
+  </div>
+
+  </div>
+  <div id="cards_right">
+    <div id="title" class="card">
+      <img class="logo" src="https://beta-karttakuva.maanmittauslaitos.fi/vectortiles/v20/mml-logo_fi.svg" alt="Logo">
+      <h1>Vektoritiilikartta</h1>
+    </div>
+    <div id="langSelection" class="card">
+      <h3>Nimistön kohteiden kieli (valintajärjestys)</h3>
+      <input type="radio" id="fin" name="lang" value="fin" checked>
+      <label for="fin">suomi, ruotsi, saamenkielet</label><br>
+      <input type="radio" id="swe" name="lang" value="swe">
+      <label for="swe">svenska, finska, samiska</label><br>
+      <input type="radio" id="sme" name="lang" value="sme">
+      <label for="sme">davvisámegiella,...</label>
+      <input type="radio" id="sms" name="lang" value="sms">
+      <label for="sms">sääʹmǩiõll,...</label>
+      <input type="radio" id="smn" name="lang" value="smn">
+      <label for="smn">anarâškielâ,...</label>
+    </div>
+    <div id="styleSelection" class="card">
+      <h3>Kartan tyylin valinta</h3>
+      <input type="radio" id="taustakartta" name="mapv" value="taustakartta" checked
+        href="https://beta-karttakuva.maanmittauslaitos.fi/vectortiles/v20/taustakartta-3857.json">
+      <label for="taustakartta">taustakartta</label><br>      
+      <input type="radio" id="backgroundmapwhite" name="mapv" value="backgroundmapwhite" 
+        href="https://beta-karttakuva.maanmittauslaitos.fi/vectortiles/v20/backgroundmap-white-3857.json">
+      <label for="backgroundmapwhite">vektoritiilikartta</label><br>
+      <input type="radio" id="backgroundmap" name="mapv" value="backgroundmap"
+        href="https://beta-karttakuva.maanmittauslaitos.fi/vectortiles/v20/backgroundmap-3857.json">
+      <label for="backgroundmap">vektoritiilikartta (vihreä tausta)</label><br>
+      <!--input type="radio" id="ortokuva" name="mapv" value="ortokuva"
+        bg="off"
+        href="https://beta-karttakuva.maanmittauslaitos.fi/vectortiles/v20/backgroundmap-orto-3857.json">
+      <label for="ortokuva">ortokuva</label><br-->
+      <input type="radio" id="wmts_taustakartta" name="mapv" value="wmts_taustakartta"
+        bg="off"
+        href="https://beta-karttakuva.maanmittauslaitos.fi/vectortiles/v20/backgroundmap-wmts-3857.json">
+      <label for="wmts_taustakartta">wmts taustakartta</label><br>
+    </div>
+    <div id="contentSelection" class="card">
+      <h3>Kartan kohteiden näkyvyys</h3>
+      <input type="checkbox" id="korkeus_viiva" name="content" value="korkeus_viiva" checked>
+      <label for="korkeus_viiva">korkeuskäyrät</label><br>
+
+    </div>
+    <div id="contentDebug" class="card">
+      <h3>Karttatiilijako</h3>
+      <input type="checkbox" id="tileBoundaries" name="debug" value="tileBoundaries">
+      <label for="tileBoundaries">tiilirajat</label><br>
+    </div>
+    <div id="featureCollection" class="card">
+      <h3>Kohdetiedot</h3>
+      <button class="button" id="features_reset">Tyhjennä&nbsp;kohdetiedot</button>
+      <pre id="features">valitse kohde kartalta</pre>
+    </div>
+  </div>
+  <script>
+
+    /* VECTOR TILE MAP */
+
+    var map = new mapboxgl.Map({
+      container: 'map', // container id
+      hash: true,
+      style: 'https://beta-karttakuva.maanmittauslaitos.fi/vectortiles/v20/taustakartta-3857.json', // stylesheet location
+      center: [24.937048, 60.198872], // starting position [lng, lat]
+      zoom: 15.29 // starting zoom
+    });
+
+    map.addControl(new mapboxgl.NavigationControl());
+
+    /* VECTOR TILE MAP END */
+
+    /* MAP UI FUNCTIONALITY (OPTIONAL) (no library dependencies except mapbox gl) */
+
+    /* TOGGLE SOME LAYER VISIBILITY */
+
+    document
+      .getElementsByName('content').forEach(el => {
+        el.addEventListener('click', e => {
+          var part = e.target.id, checked = e.target.checked;
+          map.setLayoutProperty(part, 'visibility', checked ? 'visible' : 'none');
+        });
+      });
+
+
+
+    /* LANG CHANGE FOR DISPLAYED TEXT PROPERTIES */
+
+    function formTextField(lang_list) {
+      var text_field = ["coalesce"];
+      text_field = text_field.concat(lang_list.map(lang => {
+        return ["get", "nimi_" + lang];
+      }));
+      return text_field;
+    };
+
+    /* lang order has no implied emphasis or bias to any language or language dominance */
+    let coalesceMap = {
+      fin: ['fin', 'swe', 'sme', 'sms', 'smn'],
+      swe: ['swe', 'fin', 'sme', 'sms', 'smn'],
+      sme: ['sme', 'smn', 'sms', 'fin', 'swe'],
+      sms: ['sms', 'smn', 'sme', 'fin', 'swe'],
+      smn: ['smn', 'sms', 'sme', 'fin', 'swe']
+    };
+
+    document
+      .getElementsByName('lang').forEach(el => {
+        el.addEventListener('click', e => {
+          var language = e.target.id;
+          var coalesce_list = formTextField(coalesceMap[language] || []);
+
+          map.setLayoutProperty('nimisto_kunnat', 'text-field', coalesce_list);
+          map.setLayoutProperty('nimisto-maasto-vedet', 'text-field', coalesce_list);
+          map.setLayoutProperty('nimisto', 'text-field', coalesce_list);
+          map.setLayoutProperty('nimisto_luonnopuistot', 'text-field', coalesce_list);
+        })
+      });
+
+
+    /* STYLE CHANGE */
+
+    document
+      .getElementsByName('mapv').forEach(el => {
+        el.addEventListener('click', e => {
+          var part = e.target.id, checked = e.target.checked,
+            styleHref = event.target.getAttribute('href'),
+            bgAttr = event.target.getAttribute('bg'),
+            bgOff = bgAttr ? "off" == bgAttr : false;
+
+          if (checked) {
+            map_change_style(styleHref);
+          }
+        })
+      });
+
+    /* DEBUG */
+
+    document
+      .getElementsByName('debug').forEach(el => {
+        el.addEventListener('click', e => {
+          var part = e.target.id, checked = e.target.checked;
+          switch (part) {
+            case 'tileBoundaries':
+              map.showTileBoundaries = checked;
+              break;
+          }
+        });
+      });
+
+    /* FEATURE DATA DISPLAY */
+    map.on('click', e => {
+      var features = map.queryRenderedFeatures(e.point);
+
+      // Limit the number of properties we're displaying for
+      // legibility and performance
+      var displayProperties = [
+        'type',
+        'properties',
+        'id',
+        'source',
+        'sourceLayer'
+      ];
+
+      var displayFeatures = features.map(feat => {
+        var displayFeat = {};
+        displayProperties.forEach(prop => {
+          displayFeat[prop] = feat[prop];
+        });
+        displayFeat['layer'] = feat['layer']['id']
+        return displayFeat;
+      });
+
+      document.getElementById('features').innerHTML = JSON.stringify(
+        displayFeatures,
+        null,
+        2
+      );
+    });
+
+    function features_reset_list() {
+      document.getElementById('features').innerHTML = '[]';
+    }
+
+    document.getElementById('features_reset').addEventListener('click', e => {
+      features_reset_list();
+    });
+
+
+    /* GEOCODING SUPPORT (optional as well) */
+   /* map.on('load', function () {
+      console.log("EVENT","style.load");
+      geocoding_add_source();
+ 
+    });*/
+    map.on('styledata', function () {
+      if (map.getSource('point')) {
+        return;
+      }
+
+      geocoding_add_source();
+
+    });
+
+
+    function geocoding_add_source() {
+      map.addSource('point', {
+        'type': 'geojson',
+        'data': {
+          'type': 'FeatureCollection',
+          'features': []
+        }
+      });
+      map.addLayer({
+        'id': 'point',
+        'source': 'point',
+        'type': 'circle',
+        'paint': {
+          'circle-radius': 20,
+          'circle-color': 'white',
+          'circle-stroke-color': '#000080',
+          'circle-stroke-width': 2,
+          'circle-opacity': 0.5
+
+        },
+        'filter': ['==', '$type', 'Point']
+      });
+    }
+
+    let geocoding_search_url = 'https://beta-paikkatieto.maanmittauslaitos.fi/geocoding/v1/pelias/search?',
+      geocoding_similar_url = 'https://beta-paikkatieto.maanmittauslaitos.fi/geocoding/v1/searchterm/similar?';
+
+    var geocoding_controller = new AbortController(),
+      geocoding_signal = geocoding_controller.signal;
+
+    function geocoding_click(e) {
+      let eDataset = e.target.dataset,
+        eType = eDataset.geocodingType,
+        elSearch = document.getElementById('geocoding_search');
+
+      switch (eType) {
+        case 'result':
+          var coord = [eDataset.geocodingResultPointLon, eDataset.geocodingResultPointLat];
+          console.log("LOCATION FOR ", eDataset.geocodingResultText, coord);
+          map.flyTo({ center: coord });
+          break;
+        case 'similar':
+          var text = eDataset.geocodingValueSimilar;
+          elSearch.value = '"' + text + '"';
+          geocoding_results(text);
+          geocoding_similar(text);
+          break;
+      }
+    }
+
+    function geocoding_add_to_map(json) {
+      if (!map.getSource('point')) {
+        return;
+      }
+
+      map.getSource('point').setData(json);
+    }
+
+    function geocoding_reset_list(listEl) {
+      while (listEl.firstChild) {
+        listEl.firstChild.removeEventListener(listEl.firstChild, geocoding_click);
+        listEl.firstChild.remove();
+      }
+    }
+    function geocoding_update_list(listEl, list, f) {
+      list.map(f).forEach(el => {
+        listEl.appendChild(el)
+        el.addEventListener('click', geocoding_click);
+      });
+    }
+
+    function geocoding_results(text, resetList) {
+      let listEl = document.getElementById('geocoding_results');
+
+      if (!text || text == '') {
+        geocoding_reset_list(listEl);
+        return;
+      } else if (resetList) {
+        geocoding_reset_list(listEl);
+      }
+
+      // ?lang=fin&crs=http://www.opengis.net/def/crs/EPSG/0/4326&size=50&text=Pasila
+      let url = geocoding_search_url + new URLSearchParams({
+        lang: 'fin',
+        crs: 'http://www.opengis.net/def/crs/EPSG/0/4326',
+        size: 30,
+        text: text
+      });
+
+      fetch(url, {
+        method: 'get',
+        signal: geocoding_signal
+      }).then(response => response.json()).then(json => {
+        geocoding_add_to_map(json);
+        geocoding_reset_list(listEl);
+        var arr = json.features ? json.features.map(a => {
+          var labelText = a.properties.label,
+            labelInfoText = [
+              a.properties['label:municipality'],
+              a.properties['label:region'],
+              //            a.properties['label:subregion'],
+              a.properties['label:placeType']//,
+              //            a.properties['label:placeTypeCategory'],
+            ].join(' / ');
+
+          return { text: labelText, info: labelInfoText, location: a.geometry.coordinates };
+        }) : [];
+        geocoding_update_list(listEl, arr, res => {
+          var el = document.createElement('div');
+
+          var elLink = document.createElement('a');
+          elLink.classList.add('geocoding_result');
+          elLink.innerHTML = res.text;
+
+          let attrs = {
+            'href': 'javascript:void(0)',
+            'data-geocoding-type': 'result',
+            'data-geocoding-result-text': res.text,
+            'data-geocoding-result-point-lon': res.location[0],
+            'data-geocoding-result-point-lat': res.location[1]
+          };
+          for (let [key, value] of Object.entries(attrs)) {
+            elLink.setAttribute(key, value)
+          }
+          el.appendChild(elLink);
+          var elInfo = document.createElement('span');
+          elInfo.classList.add('geocoding_result');
+          elInfo.innerHTML = res.info;
+          el.appendChild(elInfo);
+
+          return el;
+        });
+      }).catch(function (err) {
+        geocoding_reset_list(listEl);
+      });
+
+
+    }
+
+
+
+    function geocoding_similar(text, resetList) {
+      let listEl = document.getElementById('geocoding_similar');
+
+      if (!text || text == '') {
+        geocoding_reset_list(listEl);
+        return;
+      } else if (resetList) {
+        geocoding_reset_list(listEl);
+
+      }
+
+      // ?size=10&text=pasila
+      let url = geocoding_similar_url + new URLSearchParams({
+        lang: 'fin',
+        size: 10,
+        text: text
+      });
+
+
+      fetch(url, {
+        method: 'get',
+        signal: geocoding_signal
+      }).then(response => response.json()).then(json => {
+        geocoding_reset_list(listEl);
+
+        var arr = json.terms ? json.terms.map(a => { return { text: a.text }; }) : [];
+        geocoding_update_list(listEl, arr, res => {
+          var el = document.createElement('a');
+          el.classList.add('geocoding_similar');
+
+          let attrs = {
+            'href': 'javascript:void(0)',
+            'data-geocoding-type': 'similar',
+            'data-geocoding-value-similar': res.text
+          };
+          for (let [key, value] of Object.entries(attrs)) {
+            el.setAttribute(key, value)
+          }
+
+          el.innerHTML = res.text;
+          return el;
+        });
+
+      }).catch(function (err) {
+        geocoding_reset_list(listEl);
+      });
+
+    }
+
+    document.getElementById('geocoding_reset').addEventListener('click', e => {
+      document.getElementById('geocoding_search').value = '';
+      if (geocoding_controller) {
+        geocoding_controller.abort();
+        /* don't know how to reuse - aborts early if reused */
+        geocoding_controller = new AbortController();
+        geocoding_signal = geocoding_controller.signal;
+      }
+      geocoding_results();
+      geocoding_similar();
+
+    });
+
+    document.getElementById('geocoding_search').addEventListener('input',
+      e => {
+        var text = e.target.value;
+        console.log(text);
+        if (geocoding_controller) {
+          geocoding_controller.abort();
+          /* don't know how to reuse - aborts early if reused */
+          geocoding_controller = new AbortController();
+          geocoding_signal = geocoding_controller.signal;
+        }
+        geocoding_results(text);
+        geocoding_similar(text);
+      }
+    )
+
+
+    function map_change_style(styleHref) {
+
+      fetch(styleHref).then(response => response.json()).then(styleJson => {
+        map.setStyle(styleJson,{ "diff": false});
+
+        /* Geocoding related (optional)*/
+        geocoding_add_source();
+        geocoding_results();
+        geocoding_similar();
+	
+	
+      });
+
+    }
+
+  </script>
+
+</body>
+
+</html>
