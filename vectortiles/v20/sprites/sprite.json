@@ -1,0 +1,107 @@
+{
+  "esterakennelma_13" : {
+    "width" : 388,
+    "height" : 214,
+    "x" : 0,
+    "y" : 0,
+    "pixelRatio" : 10
+  },
+  "esterakennelma_12" : {
+    "width" : 388,
+    "height" : 214,
+    "x" : 0,
+    "y" : 0,
+    "pixelRatio" : 10
+  },
+  "esterakennelma_11" : {
+    "width" : 388,
+    "height" : 214,
+    "x" : 0,
+    "y" : 0,
+    "pixelRatio" : 10
+  },
+  "hautausmaa_13" : {
+    "width" : 249,
+    "height" : 375,
+    "x" : 400,
+    "y" : 3,
+    "pixelRatio" : 8
+  },
+  "hautausmaa_12" : {
+    "width" : 249,
+    "height" : 375,
+    "x" : 400,
+    "y" : 3,
+    "pixelRatio" : 12
+  },
+  "hautausmaa_11" : {
+    "width" : 249,
+    "height" : 375,
+    "x" : 400,
+    "y" : 3,
+    "pixelRatio" : 15
+  },
+  "kirkko" : {
+    "width" : 249,
+    "height" : 244,
+    "x" : 400,
+    "y" : 3,
+    "pixelRatio" : 8
+  },
+  "ilmarata" : {
+    "width" : 249,
+    "height" : 31,
+    "x" : 666,
+    "y" : 5,
+    "pixelRatio" : 10
+  },
+  "maja" : {
+    "width" : 536,
+    "height" : 620,
+    "x" : 22,
+    "y" : 400,
+    "pixelRatio" : 10
+  },
+  "suo" : {
+    "width" : 10,
+    "height" : 8,
+    "x" : 1000,
+    "y" : 0,
+    "pixelRatio" : 1
+  },
+  "suo_11" : {
+    "width" : 10,
+    "height" : 3,
+    "x" : 1000,
+    "y" : 5,
+    "pixelRatio" : 1
+  },
+  "suo_12" : {
+    "width" : 10,
+    "height" : 5,
+    "x" : 1000,
+    "y" : 4,
+    "pixelRatio" : 1
+  },
+  "suo_13" : {
+    "width" : 10,
+    "height" : 7,
+    "x" : 1000,
+    "y" : 3,
+    "pixelRatio" : 1
+  },
+  "lentokone_v" : {
+    "width" : 490,
+    "height" :490,
+    "x" : 700,
+    "y" : 400,
+    "pixelRatio" : 10
+  },
+  "lentokone" : {
+    "width" : 15,
+    "height" :14,
+    "x" : 1000,
+    "y" : 200,
+    "pixelRatio" : 1
+  }
+}
