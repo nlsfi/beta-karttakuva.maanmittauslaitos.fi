@@ -21,14 +21,6 @@ Qt
 - <https://github.com/nls-jajuko/beta-karttakuva-qt>
 - <https://github.com/nls-jajuko/beta-karttakuva-qtplugin>
 
-This repository contains some resource templates but API key authorization is required to production use.
-
-Information on how to acquire the API key available at
-- <https://www.maanmittauslaitos.fi/rajapinnat/kartat-ja-paikkatieto/avoimet-rajapintapalvelut> 
-
-Links to vector tiles resources with API key in place are available at 
-- <https://beta-karttakuva.maanmittauslaitos.fi> 
-
 
 # avoin-karttakuva.maanmittauslaitos.fi
 
