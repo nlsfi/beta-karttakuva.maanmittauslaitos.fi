@@ -38,8 +38,8 @@
       display: inline-block;
       position: relative;
       cursor: pointer;
-      width: 30%;
-      padding: 3px;
+      wxidth: 30%;
+      padding-left: 0.5rem; padding-right:0.5rem;
       border-radius: 3px;
       margin-top: 3px;
       font-size: 12px;
@@ -132,31 +132,30 @@ max-height: 20vw;
       <label for="smn">anarâškielâ,...</label>
     </div>
     <div id="styleSelection" class="card">
-      <h3>Kartan tyylin valinta</h3>
+      <h3>Vektoritiilikartan tyylin valinta</h3>
       <input type="radio" id="taustakartta" name="mapv" value="taustakartta" checked
         href="https://beta-karttakuva.maanmittauslaitos.fi/vectortiles/v20/taustakartta-3857.json">
       <label for="taustakartta">taustakartta</label><br>      
       <input type="radio" id="backgroundmapwhite" name="mapv" value="backgroundmapwhite" 
         href="https://beta-karttakuva.maanmittauslaitos.fi/vectortiles/v20/backgroundmap-white-3857.json">
-      <label for="backgroundmapwhite">vektoritiilikartta</label><br>
-      <input type="radio" id="backgroundmap" name="mapv" value="backgroundmap"
-        href="https://beta-karttakuva.maanmittauslaitos.fi/vectortiles/v20/backgroundmap-3857.json">
-      <label for="backgroundmap">vektoritiilikartta (vihreä tausta)</label><br>
-      <!--input type="radio" id="ortokuva" name="mapv" value="ortokuva"
-        bg="off"
-        href="https://beta-karttakuva.maanmittauslaitos.fi/vectortiles/v20/backgroundmap-orto-3857.json">
-      <label for="ortokuva">ortokuva</label><br-->
-      <input type="radio" id="wmts_taustakartta" name="mapv" value="wmts_taustakartta"
+      <label for="backgroundmapwhite">vektoritaustakartta</label><br>
+      <input type="radio" id="generic" name="mapv" value="generic"
+        href="https://beta-karttakuva.maanmittauslaitos.fi/vectortiles/v20/generic-3857.json">
+      <label for="generic">karkea kuvaustekniikka</label><br>
+       <input type="radio" id="hobby" name="mapv" value="hobby"
+        href="https://beta-karttakuva.maanmittauslaitos.fi/vectortiles/v20/hobby-3857.json">
+      <label for="hobby">runsas kuvaustekniikka (korkeusviivoin)</label><br>
+       <!--input type="radio" id="wmts_taustakartta" name="mapv" value="wmts_taustakartta"
         bg="off"
         href="https://beta-karttakuva.maanmittauslaitos.fi/vectortiles/v20/backgroundmap-wmts-3857.json">
-      <label for="wmts_taustakartta">wmts taustakartta</label><br>
+      <label for="wmts_taustakartta">wmts taustakartta</label><br-->
     </div>
-    <div id="contentSelection" class="card">
+    <!--div id="contentSelection" class="card">
       <h3>Kartan kohteiden näkyvyys</h3>
       <input type="checkbox" id="korkeus_viiva" name="content" value="korkeus_viiva" checked>
       <label for="korkeus_viiva">korkeuskäyrät</label><br>
 
-    </div>
+    </div-->
     <div id="contentDebug" class="card">
       <h3>Karttatiilijako</h3>
       <input type="checkbox" id="tileBoundaries" name="debug" value="tileBoundaries">
@@ -177,8 +176,12 @@ max-height: 20vw;
       hash: true,
       style: 'https://beta-karttakuva.maanmittauslaitos.fi/vectortiles/v20/taustakartta-3857.json', // stylesheet location
       center: [24.937048, 60.198872], // starting position [lng, lat]
-      zoom: 15.29 // starting zoom
+      zoom: 15.29, // starting zoom
+      attributionControl: false
     });
+
+    map.addControl(new mapboxgl.AttributionControl({compact: true}));
+
 
     map.addControl(new mapboxgl.NavigationControl());
 
@@ -300,48 +303,16 @@ max-height: 20vw;
     });
 
 
-    /* GEOCODING SUPPORT (optional as well) */
-   /* map.on('load', function () {
-      console.log("EVENT","style.load");
-      geocoding_add_source();
+    /* Geocoding support (optional as well) */
+
+    let apikey = '7cd2ddae-9f2e-481c-99d0-404e7bc7a0b2',
+        apikeypart = 'api-key='+apikey,
+        geocoding_search_url = 
+        'https://avoin-paikkatieto.maanmittauslaitos.fi/geocoding/v1/pelias/search?'+apikeypart+'&',
+        geocoding_similar_url = 
+       'https://avoin-paikkatieto.maanmittauslaitos.fi/geocoding/v1/searchterm/similar?'+apikeypart+'&';
+
  
-    });*/
-    map.on('styledata', function () {
-      if (map.getSource('point')) {
-        return;
-      }
-
-      geocoding_add_source();
-
-    });
-
-
-    function geocoding_add_source() {
-      map.addSource('point', {
-        'type': 'geojson',
-        'data': {
-          'type': 'FeatureCollection',
-          'features': []
-        }
-      });
-      map.addLayer({
-        'id': 'point',
-        'source': 'point',
-        'type': 'circle',
-        'paint': {
-          'circle-radius': 20,
-          'circle-color': 'white',
-          'circle-stroke-color': '#000080',
-          'circle-stroke-width': 2,
-          'circle-opacity': 0.5
-
-        },
-        'filter': ['==', '$type', 'Point']
-      });
-    }
-
-    let geocoding_search_url = 'https://beta-paikkatieto.maanmittauslaitos.fi/geocoding/v1/pelias/search?',
-      geocoding_similar_url = 'https://beta-paikkatieto.maanmittauslaitos.fi/geocoding/v1/searchterm/similar?';
 
     var geocoding_controller = new AbortController(),
       geocoding_signal = geocoding_controller.signal;
@@ -541,7 +512,6 @@ max-height: 20vw;
         map.setStyle(styleJson,{ "diff": false});
 
         /* Geocoding related (optional)*/
-        geocoding_add_source();
         geocoding_results();
         geocoding_similar();
 	
