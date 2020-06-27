@@ -40,7 +40,7 @@ Information on the WMTS raster services  (in finnish)
 
 Production Open API domain for National Land Survey OGC Features APIs and geocoding API
 
-Information on the geocoding service (in finnish)
+Information on the OGC Features and geocoding services (in finnish)
 - <https://www.maanmittauslaitos.fi/kartat-ja-paikkatieto/asiantuntevalle-kayttajalle/kartta-ja-paikkatietojen-rajapintapalvelut-26> 
 - <https://www.maanmittauslaitos.fi/rajapinnat/kartat-ja-paikkatieto/avoimet-rajapintapalvelut>
 
