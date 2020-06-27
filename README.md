@@ -28,3 +28,7 @@ Qt
 # avoin-karttakuva.maanmittauslaitos.fi
 
 Production Open API domain for National Land Survey vector tiles API
+
+Related
+
+- <https://github.com/nlsfi/avoin-karttakuva.maanmittauslaitos.fi>
