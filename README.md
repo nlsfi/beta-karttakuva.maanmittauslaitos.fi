@@ -12,6 +12,9 @@ More info and Demo applications
 
 Unofficial Proof-of-Concept demos for Android and Qt (no warranty or support of any kind for these projects)
 
+OpenLayers (custom projection EPSG:3067 and gridset ETRS-TM35FIN)
+- <https://github.com/nls-jajuko/beta-karttakuva-generic-ol-3067>
+
 Android
 
 - <https://github.com/nls-jajuko/beta-karttakuva-android>
