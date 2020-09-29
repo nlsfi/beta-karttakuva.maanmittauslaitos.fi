@@ -1,5 +1,5 @@
 
-This repository contains some resource templates but API key authorization is required to production use.
+This repository contains some resource templates but API key authorization is required for production use.
 Links to resources with API key in place are available for download at <https://beta-karttakuva.maanmittauslaitos.fi> .
 API keys embedded in the demos may stop working without prior notice.
 
