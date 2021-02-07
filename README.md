@@ -13,12 +13,16 @@ More info and Demo applications
 
 Unofficial Proof-of-Concept demos for Android and Qt (no warranty or support of any kind for these projects)
 
+Maplibre GL JS
+- <https://github.com/nls-jajuko/beta-karttakuva-maplibre-gljs>
+
 OpenLayers (custom projection EPSG:3067 and gridset ETRS-TM35FIN)
 - <https://github.com/nls-jajuko/beta-karttakuva-generic-ol-3067>
 
 Android
 
-- <https://github.com/nls-jajuko/beta-karttakuva-android>
+- <https://github.com/nls-jajuko/beta-karttakuva-mapblibre-gl-native more up to date but only map at the moment
+- <https://github.com/nls-jajuko/beta-karttakuva-android> more complete Proof-of-Concept
 
 Qt
 
@@ -46,7 +50,6 @@ Production Open API domain for National Land Survey OGC Features APIs and geocod
 
 Information on the OGC Features and geocoding services (in finnish)
 - <https://www.maanmittauslaitos.fi/kartat-ja-paikkatieto/asiantuntevalle-kayttajalle/kartta-ja-paikkatietojen-rajapintapalvelut-26> 
-- <https://www.maanmittauslaitos.fi/rajapinnat/kartat-ja-paikkatieto/avoimet-rajapintapalvelut>
 
 
 # beta-karttakuva.maanmittauslaitos.fi
