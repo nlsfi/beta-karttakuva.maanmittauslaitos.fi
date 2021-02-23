@@ -6,4 +6,5 @@
 > this example uses openlayers js library in WebMercator
 - <https://github.com/nlsfi/beta-karttakuva.maanmittauslaitos.fi/tree/master/kipa/kiinteistojaotus-tm35fin-beta1>
 > this example uses openlayers js library and supports ETRS-TM35FIN tileGridSet andd EPSG:3067 projection
+> <https://epsg.org/crs_3067/ETRS89-TM35FIN-E-N.html>
 
