@@ -6,7 +6,7 @@ This demo uses ETRS-TM35FIN
 Get Started
 ```
 git clone https://github.com/nlsfi/beta-karttakuva.maanmittauslaitos.fi.git
-cd beta-karttakuva.maanmittauslaitos/kipa/kiinteistojaotus-tm35fin-beta1
+cd beta-karttakuva.maanmittauslaitos.fi/kipa/kiinteistojaotus-tm35fin-beta1
 npm install
 npm start
 # go to http://localhost:1234
