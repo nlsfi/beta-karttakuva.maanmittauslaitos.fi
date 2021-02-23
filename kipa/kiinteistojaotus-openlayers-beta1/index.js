@@ -1,4 +1,4 @@
- import 'ol/ol.css';
+import 'ol/ol.css';
 import FullScreen from 'ol/control/FullScreen';
 import apply from 'ol-mapbox-style';
 import Map from 'ol/Map';
