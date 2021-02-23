@@ -8,7 +8,7 @@ information on maplibre gl js
 Get Started
 ```
 git clone https://github.com/nlsfi/beta-karttakuva.maanmittauslaitos.fi.git
-cd beta-karttakuva.maanmittauslaitos/kipa/kiinteistojaotus-maplibregljs-beta1
+cd beta-karttakuva.maanmittauslaitos.fi/kipa/kiinteistojaotus-maplibregljs-beta1
 npm install
 npm start
 
