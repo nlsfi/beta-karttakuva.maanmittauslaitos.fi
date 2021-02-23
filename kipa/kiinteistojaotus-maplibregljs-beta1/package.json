@@ -1,0 +1,34 @@
+{
+  "name": "kiinteistojaotus-maplibregljs-beta1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "maplibre-gl": "^1.13.0-rc.4"
+  },
+  "devDependencies": {
+    "parcel-bundler": "^1.12.4"
+  },
+  "scripts": {
+    "start": "parcel index.html",
+    "build": "parcel build --public-url . index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nls-jajuko/beta-karttakuva-maplibre-gljs.git"
+  },
+  "browserslist": {
+    "production": [
+      "last 3 chrome versions",
+      "last 3 firefox versions",
+      "last 3 safari versions"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "author": "",
+  "license": "ISC"
+}
