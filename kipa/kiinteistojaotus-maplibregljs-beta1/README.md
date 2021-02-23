@@ -9,4 +9,7 @@ cd beta-karttakuva.maanmittauslaitos/kipa/kiinteistojaotus-maplibregljs-beta1
 npm install
 npm start
 
+# go to http://localhost:1234
+
+
 ```
