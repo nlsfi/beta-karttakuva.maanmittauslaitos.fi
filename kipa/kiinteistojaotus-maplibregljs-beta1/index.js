@@ -1,6 +1,6 @@
 
 import { Map } from 'maplibre-gl'
-import 'maplibre-gl/dist/mapbox-gl.css';
+import 'maplibre-gl/dist/maplibre-gl.css';
 
 var map = new Map({
     container: 'map', // container id
