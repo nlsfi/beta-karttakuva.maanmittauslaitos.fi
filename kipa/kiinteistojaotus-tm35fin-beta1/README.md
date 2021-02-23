@@ -6,5 +6,6 @@ git clone https://github.com/nlsfi/beta-karttakuva.maanmittauslaitos.fi.git
 cd beta-karttakuva.maanmittauslaitos/kipa/kiinteistojaotus-tm35fin-beta1
 npm install
 npm start
+# go to http://localhost:1234
 
 ```
