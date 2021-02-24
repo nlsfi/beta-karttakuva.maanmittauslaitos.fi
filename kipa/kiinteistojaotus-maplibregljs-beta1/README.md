@@ -4,6 +4,7 @@ more information at <https://beta-karttakuva.maanmittauslaitos.fi/>
 
 information on maplibre gl js
 - <https://github.com/maplibre/maplibre-gl-js>
+- <https://www.maptiler.com/news/2021/01/mapbox-gl-open-source-fork>
 
 Get Started
 ```
