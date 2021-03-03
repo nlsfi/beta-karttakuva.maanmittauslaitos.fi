@@ -16,7 +16,7 @@
           },
           "kipa" : {
             "type" : "vector",
-            "url" : "https://avoin-visukuva.nls.fi/kiinteisto-avoin/tilejson/kiinteistojaotus/default/v2/ETRS-TM35FIN/tilejson.json?api-key=7cd2ddae-9f2e-481c-99d0-404e7bc7a0b2" 
+            "url" : "https://beta-karttakuva.maanmittauslaitos.fi/kiinteisto-avoin/tilejson/kiinteistojaotus/default/v2/ETRS-TM35FIN/tilejson.json" 
             }
         },
         "glyphs" : "https://avoin-karttakuva.maanmittauslaitos.fi/vectortiles/glyphs/{fontstack}/{range}.pbf?api-key=7cd2ddae-9f2e-481c-99d0-404e7bc7a0b2",
