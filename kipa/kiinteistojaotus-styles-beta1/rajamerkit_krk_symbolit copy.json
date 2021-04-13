@@ -49,24 +49,46 @@
                 }
               },{
                 "id": "RajamerkinSijaintitiedot",
-                "type": "circle",
+                "type": "symbol",
                 "source": "kipa",
                 "source-layer": "RajamerkinSijaintitiedot",
-                "minzoom": 11,
+                "minzoom": 9,
                 "filter" : [ "==", [ "geometry-type" ], "Point" ],
-                "paint" : {
-                  "circle-color": 
-                  [ "case", 
-                    ["all", ["in", ["get", "olemassaolo"], ["literal", [0,1,2,3]]], ["in", ["get", "rajamerkkilaji"], ["literal", [0, 600, 609, 610, 650]]]],                    
-                    "#FFFFFF",                  
-                    "#FFFFFF"  
-                  ],               
-
-                  "circle-stroke-color" : "#FF0000",
-                  "circle-stroke-width" : 1.5,
-                  "circle-radius" : 4    
+                "layout":{
+                  "icon-image": "cross-15-icon",
+                  "icon-size": 1
+                },
+                "paint": {
+                  "icon-opacity": 1,
+                  "icon-color": "#FF0000"
                 }
-                           
+                
+            
+              },{
+                "id": "RajamerkinSijaintitiedot_circle",
+                "type": "symbol",
+                "source": "kipa",
+                "source-layer": "RajamerkinSijaintitiedot",
+                "minzoom": 9,
+                "filter" : [ "==", [ "geometry-type" ], "Point" ],
+                "layout":{
+                  "icon-size": 1.5,
+                  "icon-image": 
+                  [ "match", 
+                    ["get", "olemassaolo"],
+                    0,
+                    "circle-stroked-15-icon",
+                    1,
+                    "circle-stroked-15-icon",                    
+                    "cross-15-icon"  
+                  ]
+                },
+                "paint": {
+                  "icon-opacity": 1,
+                  "icon-color": "#FF0000"
+                }
+                
+            
               },{
                 "id" : "KiinteistotunnuksenSijaintitiedot",
                 "type" : "symbol",
@@ -80,8 +102,8 @@
                   "text-size" : 12
                 },
                 "paint" : {
-                    "text-color" : "#000000",
-                    "text-halo-color" : "#FDFDFD",
+                    "text-color" : "#1A1AF0",
+                    "text-halo-color" : "#fff",
                     "text-halo-width" : 2
                 }
               },{
@@ -93,12 +115,11 @@
                 "layout" : {
                   "text-field" : "{numero}",
                   "text-font" : [ "Liberation Sans NLSFI" ],
-                  "text-size" : 10,
-                  "text-offset": [0.7, 0.7],
-                  "text-anchor": "top"
+                  "text-size" : 14,
+                  "text-anchor" : "bottom-right"
                 },
                 "paint" : {
-                  "text-color" : "#FF0000",
+                  "text-color" : "#1A1AF0",
                   "text-halo-color" : "#fff",
                   "text-halo-width" : 2
                 }

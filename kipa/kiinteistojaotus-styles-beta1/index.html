@@ -212,13 +212,16 @@
       <!--label for="extra">Kiinteistöjaotus, rajamerkkejä symboloituna</label><br-->
       <!--/div--></br>
       <input type="radio" id="symbolit" name="mapv" value="symbolit"
-       bg="off" src="rajamerkit_krk_symbolit.json">
+       bg="off" src="rajamerkit_krk_symboli_ja_ympyra.json">
       <div class="tooltip">Kiinteistöjaotus, rajamerkkejä symboloituna
         <span class="tooltiptext"><img src="/beta-karttakuva.maanmittauslaitos.fi/kipa/kiinteistojaotus-styles-beta1/all_maki_icons/svgs/circle-stroked-15.png"/>  Rajamerkki</br>
           <img src="/beta-karttakuva.maanmittauslaitos.fi/kipa/kiinteistojaotus-styles-beta1/all_maki_icons/svgs/cross-15-icon.png"/>  Rajamerkki kadonnut</br>
         </span>
       <!--label for="extra">Kiinteistöjaotus, rajamerkkejä symboloituna</label--><br>
-      </div>
+      </div><br>
+      <input type="radio" id="symboli" name="mapv" value="symboli"
+      bg="off" src="rajamerkit_krk_symbolit.json">
+      <label for="symboli">Kiinteistöjaotus symbolein</label>
     </div>
         <!--div id="contentSelection" class="card">
       <h3>Kartan kohteiden näkyvyys</h3>
@@ -255,12 +258,12 @@
       
     });
       map.on('style.load', function () {
-          map.loadImage('./all_maki_icons/svgs/cross-15-icon.png', function (error, image) {
+          map.loadImage('./all_maki_icons/svgs/cross-32.png', function (error, image) {
           if (error) throw error;
-          map.addImage('cross-15-icon', image, { 'sdf': true });
-          map.loadImage('./all_maki_icons/svgs/circle-stroked-15.png', function (error, image) {
+          map.addImage('cross-32', image, { 'sdf': true });
+          map.loadImage('./all_maki_icons/svgs/circle-stroked-32.png', function (error, image) {
           if (error) throw error;
-          map.addImage('circle-stroked-15-icon', image, { 'sdf': true });
+          map.addImage('circle-32', image, { 'sdf': true });
             map.addSource('kiinteisto', {
                 type: 'vector',
                 url: 'https://beta-karttakuva.maanmittauslaitos.fi/kiinteisto-avoin/tilejson/kiinteistojaotus/default/v1/ETRS-TM35FIN/tilejson.json?api-key=7cd2ddae-9f2e-481c-99d0-404e7bc7a0b2'
