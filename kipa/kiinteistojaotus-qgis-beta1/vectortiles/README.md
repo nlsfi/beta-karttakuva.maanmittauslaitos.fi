@@ -24,7 +24,7 @@ https://beta-karttakuva.maanmittauslaitos.fi/kiinteisto-avoin/tilejson/kiinteist
 
 
 
-Download and save the QGIS Layer Style File for the Cadastre layers (kiinteistojaotus_qgis.qml) from <a href="https://raw.githubusercontent.com/nlsfi/beta-karttakuva.maanmittauslaitos.fi/master/kipa/kiinteistojaotus-qgis-beta1/vectortiles/kiinteistojaotus_qgis.qml" target="_blank">here</a>. QGIS Layer Style File opens in a new tab. Right click somewhere in the opened tab and choose "Save as...". Save the file, filename extension is <B>.qml</B>. Remember to use quatation marks around the file name.
+Download and save the QGIS Layer Style File for the Cadastre layers (kiinteistojaotus_qgis.qml) from <a href="https://raw.githubusercontent.com/nlsfi/beta-karttakuva.maanmittauslaitos.fi/master/kipa/kiinteistojaotus-qgis-beta1/vectortiles/kiinteistojaotus_qgis.qml" target="_blank">here</a>. Right click somewhere in the content of the styling information and choose "Save as...". Save the file with filename extension e.g. <B>kiinteistojaotus_qgis.qml</B>. Remember to use quatation marks around the file name and the suffix.
 
 ![Connection details](./images/saving_the_file.png)
 
