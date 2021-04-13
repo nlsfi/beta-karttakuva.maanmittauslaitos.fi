@@ -1,7 +1,7 @@
 
 
 Update
-- 2021-03 Cadastre Vector Tiles and OGC API Features 
+- Cadastre Vector Tiles and OGC API Features beta release at 2nd of March 2021
 - more info <https://beta-karttakuva.maanmittauslaitos.fi>
 - see also <https://github.com/nlsfi/beta-karttakuva.maanmittauslaitos.fi/tree/master/kipa/kiinteistojaotus-maplibregljs-beta1>
 - see also <https://github.com/nlsfi/beta-karttakuva.maanmittauslaitos.fi/tree/master/kipa/kiinteistojaotus-openlayers-beta1>
