@@ -181,10 +181,10 @@
         src="kiinteisto_orig.json">
         <label for="generic">Kiinteistöjaotus taustakartalla</label><br>
          <input type="radio" id="orto" name="mapv" value="orto"
-         src="ortokuva.json">
+         src="ortokuva_v2.json">
         <label for="orto">Kiinteistöjaotus ortokuvalla</label><br>
         <input type="radio" id="orto_v" name="mapv" value="orto_vaara"
-         src="ortokuva_vaaravari.json">
+         src="ortokuva_vaaravari_v2.json">
         <label for="orto_v">Kiinteistöjaotus ortokuva (vääräväri)</label><br>
         <input type="radio" id="wmts_taustakartta" name="mapv" value="wmts_taustakartta"
         bg="off" src="wmts_taustakartta.json">
@@ -199,7 +199,7 @@
           <p><span class="circle_orange"></span>tasosijaintitarkkuus &#60; 10.0 m</p>
           <p><span class="circle_red"></span>tasosijaintitarkkuus &#62; 10.0 m</p>
         </span>
-        </div></br>
+        </div><!--/br>
        <input type="radio" id="symbolit" name="mapv" value="symbolit"
         bg="off" src="rajamerkit_symbolit.json">
       <div class="tooltip">Kiinteistöjaotus, rajamerkkejä symboloituna
@@ -209,8 +209,19 @@
           <img src="/kipa/kiinteistojaotus_style_beta1/all_maki_icons/svgs/furniture-15.svg"/>  tasosijaintitarkkuus &#60; 5.00 m</br>
           <img src="/kipa/kiinteistojaotus_style_beta1/all_maki_icons/svgs/viewpoint-15.svg"/>  tasosijaintitarkkuus &#62; 10.0 m</br>
         </span>
+      <!--label for="extra">Kiinteistöjaotus, rajamerkkejä symboloituna</label><br-->
+      <!--/div--></br>
+      <input type="radio" id="symbolit" name="mapv" value="symbolit"
+       bg="off" src="rajamerkit_krk_symboli_ja_ympyra.json">
+      <div class="tooltip">Kiinteistöjaotus, rajamerkkejä symboloituna
+        <span class="tooltiptext"><img src="/beta-karttakuva.maanmittauslaitos.fi/kipa/kiinteistojaotus-styles-beta1/all_maki_icons/svgs/circle-stroked-15.png"/>  Rajamerkki</br>
+          <img src="/beta-karttakuva.maanmittauslaitos.fi/kipa/kiinteistojaotus-styles-beta1/all_maki_icons/svgs/cross-15-icon.png"/>  Rajamerkki kadonnut</br>
+        </span>
       <!--label for="extra">Kiinteistöjaotus, rajamerkkejä symboloituna</label--><br>
-      </div>
+      </div><br>
+      <input type="radio" id="symboli" name="mapv" value="symboli"
+      bg="off" src="rajamerkit_krk_symbolit.json">
+      <label for="symboli">Kiinteistöjaotus kiinteistörekisterikartan mukaan</label>
     </div>
         <!--div id="contentSelection" class="card">
       <h3>Kartan kohteiden näkyvyys</h3>
@@ -246,13 +257,20 @@
       attributionControl: false,
       
     });
-        map.on('style.load', function () {
-      
-    map.addSource('kiinteisto', {
-        type: 'vector',
-        url: 'https://beta-karttakuva.maanmittauslaitos.fi/kiinteisto-avoin/tilejson/kiinteistojaotus/default/v1/ETRS-TM35FIN/tilejson.json?api-key=7cd2ddae-9f2e-481c-99d0-404e7bc7a0b2'
-    });
-});
+      map.on('style.load', function () {
+          map.loadImage('./all_maki_icons/svgs/cross-32.png', function (error, image) {
+          if (error) throw error;
+          map.addImage('cross-32', image, { 'sdf': true });
+          map.loadImage('./all_maki_icons/svgs/circle-stroked-32.png', function (error, image) {
+          if (error) throw error;
+          map.addImage('circle-32', image, { 'sdf': true });
+            map.addSource('kiinteisto', {
+                type: 'vector',
+                url: 'https://beta-karttakuva.maanmittauslaitos.fi/kiinteisto-avoin/tilejson/kiinteistojaotus/default/v1/ETRS-TM35FIN/tilejson.json?api-key=7cd2ddae-9f2e-481c-99d0-404e7bc7a0b2'
+            });
+          });  
+        }); 
+      });
 
     map.addControl(new mapboxgl.AttributionControl({compact: true}));
 
