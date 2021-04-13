@@ -32,6 +32,6 @@ Double click the icon ![VT icon](./images/icon_vt.png)   or the name of the Cada
 
 ![Layer properties](./images/layer_properties_screenshot.png)
 
-Click the Style button and select <b>Load Style…</b> option. Database Styles Manager window opens. Use the <b>Find</b> button and select just a moment ago downloaded kiinteistojaotus_qgis.qml file. Click <b>Load Style</b> button. Close the Layer Properties window with <b>OK</b> button.
+Click the Style button and select <b>Load Style…</b> option. Database Styles Manager window opens. Use the <b>Find</b> button and select just a moment ago downloaded and saved kiinteistojaotus_qgis.qml file. Click <b>Load Style</b> button. Close the Layer Properties window with <b>OK</b> button.
 
 ![Symbols of cadastre layers](./images/symbols_screenshot.png)
