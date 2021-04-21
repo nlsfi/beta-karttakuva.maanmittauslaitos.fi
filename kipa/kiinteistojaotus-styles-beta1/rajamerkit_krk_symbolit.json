@@ -53,24 +53,25 @@
               "source": "kipa",
               "source-layer": "RajamerkinSijaintitiedot",
               "minzoom": 11,
-              "filter" : [ "all",
-                [
-                "match",
-                [
-                  "get",
-                  "rajamerkkilaji"
+              "filter" : 
+              [ "all",
+                  [
+                  "match",
+                  [
+                    "get",
+                    "rajamerkkilaji"
+                  ],
+                  [
+                    600,
+                    609,
+                    610,
+                    650
+                  ],
+                  true,
+                  false
                 ],
-                [
-                  600,
-                  609,
-                  610,
-                  650
-                ],
-                true,
-                false
-              ],
-              ["!",["all", ["in", ["get", "olemassaolo"], ["literal", [2]]], ["in", ["get", "rajamerkkilaji"], ["literal", [600]]]]]
-            ],  
+                ["!",["all", ["in", ["get", "olemassaolo"], ["literal", [2]]], ["in", ["get", "rajamerkkilaji"], ["literal", [600]]]]]
+              ],  
               "paint" : {
                 "circle-color": 
                 [ "case", 
