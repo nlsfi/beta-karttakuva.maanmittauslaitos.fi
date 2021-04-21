@@ -1618,7 +1618,7 @@
       "text-halo-blur" : 1
     }
   },{
-    "id": "PalstanSijaintitiedot2",
+    "id": "PalstanSijaintitiedot",
     "type": "fill",
     "source": "kipa",
     "source-layer": "PalstanSijaintitiedot",
@@ -1627,32 +1627,55 @@
       "fill-color" : "rgba(255,255,255,0.05)"
     }
   },{
-    "id" : "KiinteistorajanSijaintitiedot2",
+    "id" : "KiinteistorajanSijaintitiedot",
     "type" : "line",
     "source" : "kipa",
     "source-layer" : "KiinteistorajanSijaintitiedot",
     "filter" : [ "==", [ "geometry-type" ], "LineString" ],
     "minzoom" : 9,
     "paint" : {
-      "line-color" : "rgba(255,0,0,1)",
-       "line-width" : 1
+      "line-color" :"rgba(255,0,0,1)",
+      "line-width" : 1
     }
   },{
-    "id": "RajamerkinSijaintitiedot2",
+    "id": "RajamerkinSijaintitiedot",
     "type": "circle",
     "source": "kipa",
     "source-layer": "RajamerkinSijaintitiedot",
     "minzoom": 11,
-    "filter" : [ "==", [ "geometry-type" ], "Point" ],
+    "filter" : [ "all",
+      [
+      "match",
+      [
+        "get",
+        "rajamerkkilaji"
+      ],
+      [
+        600,
+        609,
+        610,
+        650
+      ],
+      true,
+      false
+    ],
+    ["!",["all", ["in", ["get", "olemassaolo"], ["literal", [2]]], ["in", ["get", "rajamerkkilaji"], ["literal", [600]]]]]
+  ],  
     "paint" : {
-      "circle-stroke-color": "rgba(255,255,255,1)",
-      "circle-color": "rgba(255,0,0,1)",
-      "circle-radius" : 3
- 
-    }
+      "circle-color": 
+      [ "case", 
+        ["all", ["in", ["get", "olemassaolo"], ["literal", [0,1,2,3]]], ["in", ["get", "rajamerkkilaji"], ["literal", [600, 609, 610, 650]]]],                    
+        "#FFFFFF",
+        "#00FFFF" 
+      ],               
 
+      "circle-stroke-color" : "#FF0000",
+      "circle-stroke-width" : 1,
+      "circle-radius" : 2   
+    }
+               
   },{
-    "id" : "KiinteistotunnuksenSijaintitiedot2",
+    "id" : "KiinteistotunnuksenSijaintitiedot",
     "type" : "symbol",
     "source" : "kipa",
     "source-layer" : "KiinteistotunnuksenSijaintitiedot",
@@ -1664,29 +1687,58 @@
       "text-size" : 12
     },
     "paint" : {
-      "text-color" : "#000",
-      "text-halo-color" : "#fff",
-      "text-halo-width" : 1.5,
-      "text-halo-blur" : 1
+        "text-color" : "#000000",
+        "text-halo-color" : "#FDFDFD",
+        "text-halo-width" : 2
     }
   },{
-    "id": "RajamerkinSijaintitiedot_tunnus2",
+    "id": "RajamerkinSijaintitiedot_symbols2",
     "type": "symbol",
     "source": "kipa",
     "source-layer": "RajamerkinSijaintitiedot",
-    "minzoom": 12,
-    "layout" : {
-      "text-field" : "{numero}",
-      "text-font" : [ "Liberation Sans NLSFI" ],
-      "symbol-placement" : "point",
-      "text-size" : 10
+    "minzoom": 11,
+    "filter" : ["all", ["in", ["get", "olemassaolo"], ["literal", [2]]], ["in", ["get", "rajamerkkilaji"], ["literal", [600]]]],
+    "layout":{
+      "icon-size": 0.4,
+      "icon-image":
+       
+        "cross-32",
+        "text-field" : "{numero}",
+        "text-font" : [ "Liberation Sans NLSFI" ],
+        "text-size" : 10,
+        "text-offset": [0.7, 0.7],
+        "text-anchor": "top"
+    
     },
-    "paint" : {
-      "text-color" : "#800000",
-      "text-halo-color" : "#fff",
-      "text-halo-width" : 1.5,
-      "text-halo-blur" : 1
+    "paint": {
+      "icon-opacity": 1,
+      "icon-color": "#FF0000",
+      "text-color" : "#FF0000"
     }
+    
+
+  },{
+    "id": "RajamerkinSijaintitiedot_text",
+    "type": "symbol",
+    "source": "kipa",
+    "source-layer": "RajamerkinSijaintitiedot",
+    "minzoom": 9,
+    "filter" : ["!",["all", ["in", ["get", "olemassaolo"], ["literal", [2]]], ["in", ["get", "rajamerkkilaji"], ["literal", [600]]]]],  
+    "layout":{
+      
+        "text-field" : "{numero}",
+        "text-font" : [ "Liberation Sans NLSFI" ],
+        "text-size" : 10,
+        "text-offset": [0.7, 0.7],
+        "text-anchor": "top"
+    
+    },
+    "paint": {
+      "icon-opacity": 1,
+      "icon-color": "#FF0000",
+      "text-color" : "#FF0000"
+    }
+    
 
   }
  ],
