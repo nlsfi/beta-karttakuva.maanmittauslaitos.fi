@@ -47,11 +47,55 @@
                "line-width" : 2
             }
           },{
+            "id" : "KiinteistotunnuksenSijaintitiedot",
+            "type" : "symbol",
+            "source" : "kipa",
+            "source-layer" : "KiinteistotunnuksenSijaintitiedot",
+            "minzoom": 10,
+            "layout" : {
+              "text-field" : "{kiinteistotunnuksenEsitysmuoto}",
+              "text-font" : [ "Liberation Sans NLSFI" ],
+              "symbol-placement" : "point",
+              "text-size" : 12
+            },
+            "paint" : {
+                "text-color" : "#1A1AF0",
+                "text-halo-color" : "#fff",
+                "text-halo-width" : 2
+            }
+          },{
+            "id": "MaaraalanOsanSijaintitiedot",
+            "name": "Määräalanosa, polygon",
+            "type": "fill",
+            "source": "kipa",
+            "source-layer": "MaaraalanOsanSijaintitiedot",
+            "minzoom": 8,
+            "paint" : {
+              "fill-color": "rgba(247,145,70,0.5)"
+            }
+        
+          },{
+            "id": "MaaraalanOsanSijaintitiedot_point",
+            "name": "Määräalanosa, piste",
+            "type": "symbol",
+            "source": "kipa",
+            "source-layer": "MaaraalanOsanSijaintitiedot",
+            "minzoom": 8,
+            "layout":{
+              "icon-size": 1,
+              "icon-image":                   
+                "kyltti"            
+            },
+            "paint": {
+              "icon-opacity": 1
+            }
+        
+          },{
             "id": "RajamerkinSijaintitiedot",
             "type": "circle",
             "source": "kipa",
             "source-layer": "RajamerkinSijaintitiedot",
-            "minzoom": 11,
+            "minzoom": 12,
             "filter" : 
             [ "all",
               [
@@ -78,34 +122,17 @@
                 [ "case", 
                   ["all", ["in", ["get", "olemassaolo"], ["literal", [0,1,2,3]]], ["in", ["get", "rajamerkkilaji"], ["literal", [600, 609, 610, 650]]]],                    
                   "#1A1AF0",
-                  "#00FFFF" 
+                  "#1A1AF0" 
                 ],  
                 "circle-radius" : 3             
             }
         
           },{
-            "id" : "KiinteistotunnuksenSijaintitiedot",
-            "type" : "symbol",
-            "source" : "kipa",
-            "source-layer" : "KiinteistotunnuksenSijaintitiedot",
-            "minzoom": 13,
-            "layout" : {
-              "text-field" : "{kiinteistotunnuksenEsitysmuoto}",
-              "text-font" : [ "Liberation Sans NLSFI" ],
-              "symbol-placement" : "point",
-              "text-size" : 12
-            },
-            "paint" : {
-                "text-color" : "#1A1AF0",
-                "text-halo-color" : "#fff",
-                "text-halo-width" : 2
-            }
-          },{
             "id": "RajamerkinSijaintitiedot_symbols2",
             "type": "symbol",
             "source": "kipa",
             "source-layer": "RajamerkinSijaintitiedot",
-            "minzoom": 11,
+            "minzoom": 12,
             "filter" : ["all", ["in", ["get", "olemassaolo"], ["literal", [2]]], ["in", ["get", "rajamerkkilaji"], ["literal", [600]]]],
             "layout":{
               "icon-size": 0.5,
@@ -133,7 +160,7 @@
             "type": "symbol",
             "source": "kipa",
             "source-layer": "RajamerkinSijaintitiedot",
-            "minzoom": 13,
+            "minzoom": 13.5,
             "filter" : ["!",["all", ["in", ["get", "olemassaolo"], ["literal", [2]]], ["in", ["get", "rajamerkkilaji"], ["literal", [600]]]]],  
             "layout" : {
               "text-field" : "{numero}",
