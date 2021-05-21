@@ -27,7 +27,8 @@
                 "source": "wmts_ortokuva_vaaravari",
                 "paint": {}
             },{
-              "id": "PalstanSijaintitiedot",
+              "id": "PalstanSijaintitiedot",             
+              "name": "Palstansijaintitiedot",
               "type": "fill",
               "source": "kipa",
               "source-layer": "PalstanSijaintitiedot",
@@ -37,6 +38,7 @@
               }
             },{
               "id" : "KiinteistorajanSijaintitiedot",
+              "name": "Kiinteistöraja",
               "type" : "line",
               "source" : "kipa",
               "source-layer" : "KiinteistorajanSijaintitiedot",
@@ -48,10 +50,11 @@
               }
             },{
               "id" : "KiinteistotunnuksenSijaintitiedot",
+              "name": "Kiinteistötunnus",
               "type" : "symbol",
               "source" : "kipa",
               "source-layer" : "KiinteistotunnuksenSijaintitiedot",
-              "minzoom": 10,
+              "minzoom": 11,
               "layout" : {
                 "text-field" : "{kiinteistotunnuksenEsitysmuoto}",
                 "text-font" : [ "Liberation Sans NLSFI" ],
@@ -69,7 +72,7 @@
               "type": "fill",
               "source": "kipa",
               "source-layer": "MaaraalanOsanSijaintitiedot",
-              "minzoom": 8,
+              "minzoom": 11,
               "paint" : {
                 "fill-color": "rgba(247,145,70,0.5)"
               }
@@ -80,7 +83,7 @@
               "type": "symbol",
               "source": "kipa",
               "source-layer": "MaaraalanOsanSijaintitiedot",
-              "minzoom": 8,
+              "minzoom": 11,
               "layout":{
                 "icon-size": 1,
                 "icon-image":                   
@@ -92,6 +95,7 @@
           
             },{
               "id": "RajamerkinSijaintitiedot",
+              "name": "Rajamerkki",
               "type": "circle",
               "source": "kipa",
               "source-layer": "RajamerkinSijaintitiedot",
@@ -129,6 +133,7 @@
           
             },{
               "id": "RajamerkinSijaintitiedot_symbols2",
+              "name": "Rajamerkki, tuntematon",
               "type": "symbol",
               "source": "kipa",
               "source-layer": "RajamerkinSijaintitiedot",
@@ -157,10 +162,11 @@
           
             },{
               "id": "RajamerkinSijaintitiedot_tunnus",
+              "name": "Rajamerkin tunnus",
               "type": "symbol",
               "source": "kipa",
               "source-layer": "RajamerkinSijaintitiedot",
-              "minzoom": 12,
+              "minzoom": 12.5,
               "filter" : ["!",["all", ["in", ["get", "olemassaolo"], ["literal", [2]]], ["in", ["get", "rajamerkkilaji"], ["literal", [600]]]]],  
               "layout" : {
                 "text-field" : "{numero}",

@@ -8,9 +8,15 @@
   <script src='https://beta-karttakuva.maanmittauslaitos.fi/vectortiles/v20/js/mapbox/mapbox-gl.js'></script>
   <link href='https://beta-karttakuva.maanmittauslaitos.fi/vectortiles/v20/js/mapbox/mapbox-gl.css' rel='stylesheet' />
   <link href="https://fonts.googleapis.com/css?family=Titillium+Web" rel="stylesheet">
-  <style>
-    h1,
-    h2,
+<style>
+ h1 {
+    font-weight: normal;
+    font-size: 12px;
+  }
+    h2 {
+      font-weight: normal;
+      font-size: 12px;
+    }
     h3 {
       font-weight: normal;
       font-size: 12px;
@@ -101,6 +107,10 @@
       position: fixed;
       z-index: 1;
     }
+    .tooltip:hover .tooltiptext {
+      visibility: visible;
+    }
+    
     .circle_red {
       display: inline-block;
       vertical-align: middle;
@@ -156,14 +166,174 @@
       height: 10px;
       width: 10px;
     }
-    .tooltip:hover .tooltiptext {
-      visibility: visible;
+    #menu {
+    background: #fff;
+    position: absolute;
+    z-index: 1;
+    top: 10px;
+    right: 40px;
+    border-radius: 3px;
+    width: 200px;
+    border: 1px solid rgba(0,0,0,0.4);
+    font-family: 'Titillium Web', sans-serif;
+    visibility: hidden;
+   
+    }
+
+    .collapsible {
+      background-color: white;
+      color: black;
+      cursor: pointer;
+      padding: 10px;
+      width: 100%;
+      border: none;
+      text-align: left;
+      outline: none;
+      font-size: 12px;
+      font-family: 'Titillium Web', sans-serif;
+    }
+    
+    .active, .collapsible:hover {
+      background-color: white;
+    }
+    
+    .collapsible:after {
+      content: '\002B';
+      color: black;
+      font-weight: bold;
+      float: right;
+      margin-left: 5px;
+    }
+    
+    .active:after {
+      content: "\2212";
+    }
+    
+    .content {
+      padding: 0 18px;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.2s ease-out;
+      background-color: white;
+      border: 1px solid rgba(240, 240, 240, 1.0);
+    }
+
+</style>
+<script>
+  function layerList(styleJson) {
+  var menulist = document.getElementById('menu');
+  menulist.style.visibility='visible';
+  var layerList = document.getElementById('layer-toggles');
+  while (layerList.firstChild) {
+    layerList.removeChild(layerList.firstChild);
+  }
+  if (styleJson.layers.length < 220) {
+  activelayers = styleJson.layers;
+  var zoomlevel = map.getZoom();
+    for (var i = 0; i < activelayers.length; i++) {        
+      console.log(activelayers[i].source);
+      if (activelayers[i].source=="kipa") {
+        var name = activelayers[i].name;
+        var id = activelayers[i].id;
+        const toggle = document.createElement('li')
+        toggle.style
+        // create label
+        const label = document.createElement('label')
+        label.setAttribute('for', id)
+        label.setAttribute('name', id)
+        label.innerHTML = name;
+
+        // create input
+        const input = document.createElement('input')
+        input.setAttribute('id', id)
+        input.setAttribute('type', 'checkbox')
+        input.setAttribute('name', 'layertoggle')
+        input.setAttribute('value', id)
+        input.setAttribute('checked', true)
+
+        // add event
+        input.onclick = function (e) {
+        const checked = this.checked
+          if (checked) {
+              map.setLayoutProperty(this.id, 'visibility', 'visible');
+            } else {
+              map.setLayoutProperty(this.id, 'visibility', 'none');
+            }
+        }
+        var layers = document.getElementById('layer-toggles');
+        toggle.append(input)
+        toggle.append(label)
+        layers.append(toggle)
+        menulist.style.visibility='visible';
+      } else {
+        menulist.style.visibility='hidden';
+    }
+    } 
+  } else {
+      menulist.style.visibility='hidden';
+  }
+  
+  checkzoom(styleJson);
 }
-  </style>
+
+
+function checknewzoom()
+{
+var newZoomLevel = map.getZoom();
+var currentZoomLevel = newZoomLevel;
+var layerList = document.getElementById('layer-toggles');
+var layersOfService = map.getStyle();
+activelayers = layersOfService.layers;
+for (var i = 0; i < activelayers.length; i++) {
+    var id = activelayers[i].id;
+    var children = layerList.childNodes;
+    var len = children.length;
+    if(len --) do {
+      var childname= children[len].childNodes[0].id;
+        if  (id==childname) {
+          var labelLayer = document.getElementById(id);
+          if (activelayers[i].minzoom>currentZoomLevel) {
+          labelLayer.disabled=true;
+          } else {
+            labelLayer.disabled=false;
+          }
+        }
+    } while(len --);         
+} 
+}
+function checkzoom(styleJson)
+{
+var newZoomLevel = map.getZoom();  
+var currentZoomLevel = newZoomLevel;
+var layerList = document.getElementById('layer-toggles');
+var layersOfService = styleJson;
+activelayers = layersOfService.layers;
+for (var i = 0; i < activelayers.length; i++) {
+    var id = activelayers[i].id;
+    var children = layerList.childNodes;
+    var len = children.length;
+    if(len --) do {
+      var childname= children[len].childNodes[0].id;
+        if  (id==childname) {
+          var labelLayer = document.getElementById(id);
+          if (activelayers[i].minzoom>currentZoomLevel) {
+          labelLayer.disabled=true;
+          } else {
+            labelLayer.disabled=false;
+          }
+        }
+    } while(len --);
+    
+}
+    
+
+}
+  </script>
 </head>
 
 <body>
   
+  <nav id="menu" ><button type="button" class="collapsible">Kiinteistöjaotuksen tasolistaus</button><ul id="layer-toggles" style="list-style-type:none;padding-left: 5px;" class="content"></ul></nav>
   <div id='map'></div>
 
   </div>
@@ -266,7 +436,7 @@
 
     map.addControl(new mapboxgl.AttributionControl({compact: true}));
 
-
+    map.on('moveend', checknewzoom);
     map.addControl(new mapboxgl.NavigationControl());
 
     /* VECTOR TILE MAP END */
@@ -405,7 +575,7 @@
 
       fetch(styleHref).then(response => response.json()).then(styleJson => {
         map.setStyle(styleJson,{ "diff": false});
-        
+        layerList(styleJson);
         
 	
       });
@@ -413,6 +583,22 @@
       
     }
 
+  </script>
+<script>
+  var coll = document.getElementsByClassName("collapsible");
+  var i;
+  
+  for (i = 0; i < coll.length; i++) {
+    coll[i].addEventListener("click", function() {
+      this.classList.toggle("active");
+      var content = this.nextElementSibling;
+      if (content.style.maxHeight){
+        content.style.maxHeight = null;
+      } else {
+        content.style.maxHeight = content.scrollHeight + "px";
+      } 
+    });
+  }
   </script>
 
 </body>

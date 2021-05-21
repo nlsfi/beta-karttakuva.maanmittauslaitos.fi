@@ -1618,16 +1618,18 @@
       "text-halo-blur" : 1
     }
   },{
-    "id": "PalstanSijaintitiedot",
+    "id": "PalstanSijaintitiedot",              
+    "name": "Palstansijaintitiedot",
     "type": "fill",
     "source": "kipa",
     "source-layer": "PalstanSijaintitiedot",
     "minzoom": 10,
     "paint" : {
-      "fill-color" : "rgba(255,255,255,0.05)"
+      "fill-color" : "rgba(255,255,255,0.25)"
     }
   },{
     "id" : "KiinteistorajanSijaintitiedot",
+    "name": "Kiinteistöraja",
     "type" : "line",
     "source" : "kipa",
     "source-layer" : "KiinteistorajanSijaintitiedot",
@@ -1639,6 +1641,7 @@
     }
   },{
     "id" : "KiinteistotunnuksenSijaintitiedot",
+    "name": "Kiinteistötunnus",
     "type" : "symbol",
     "source" : "kipa",
     "source-layer" : "KiinteistotunnuksenSijaintitiedot",
@@ -1674,7 +1677,7 @@
     "type": "fill",
     "source": "kipa",
     "source-layer": "MaaraalanOsanSijaintitiedot",
-    "minzoom": 8,
+    "minzoom": 10,
     "paint" : {
       "fill-color": "rgba(247,145,70,0.5)"
     }
@@ -1685,7 +1688,7 @@
     "type": "symbol",
     "source": "kipa",
     "source-layer": "MaaraalanOsanSijaintitiedot",
-    "minzoom": 8,
+    "minzoom": 10,
     "layout":{
       "icon-size": 1,
       "icon-image":                   
@@ -1697,6 +1700,7 @@
 
   },{
     "id": "RajamerkinSijaintitiedot",
+    "name": "Rajamerkki",
     "type": "circle",
     "source": "kipa",
     "source-layer": "RajamerkinSijaintitiedot",
@@ -1734,6 +1738,7 @@
                
   },{
     "id": "RajamerkinSijaintitiedot_symbols2",
+    "name": "Rajamerkki, tuntematon",
     "type": "symbol",
     "source": "kipa",
     "source-layer": "RajamerkinSijaintitiedot",
@@ -1760,6 +1765,7 @@
 
   },{
     "id": "RajamerkinSijaintitiedot_text",
+    "name": "Rajamerkin tunnus",
     "type": "symbol",
     "source": "kipa",
     "source-layer": "RajamerkinSijaintitiedot",
