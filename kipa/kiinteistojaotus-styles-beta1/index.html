@@ -348,10 +348,10 @@ for (var i = 0; i < activelayers.length; i++) {
         href="https://avoin-karttakuva.maanmittauslaitos.fi/vectortiles/stylejson/v20/taustakartta.json?TileMatrixSet=ETRS-TM35FIN&api-key=7cd2ddae-9f2e-481c-99d0-404e7bc7a0b2">
         <label for="taustakartta">Vain taustakartta</label><br>      
         <input type="radio" id="generic" name="mapv" value="generic"
-        src="kiinteisto_orig.json">
+        src="cadastral_vt_topographic.json">
         <label for="generic">Kiinteistöjaotus vt-maastokartalla kiinteistörekisterikarttaa mukaillen</label><br>
         <input type="radio" id="symbolit" name="mapv" value="symbolit"
-       bg="off" src="rajamerkit_krk_symbolit.json">
+       bg="off" src="cadastral_wmts_topographic.json">
       <div class="tooltip">Kiinteistöjaotus wmts-taustakartalla kiinteistörekisterikarttaa mukaillen
         <span class="tooltiptext"><img src="/kipa/kiinteistojaotus_style_beta1/all_maki_icons/svgs/circle-stroked-15.png"/>  Rajamerkki</br>
           <img src="/kipa/kiinteistojaotus_style_beta1/all_maki_icons/svgs/cross-15-icon.png"/>  Rajapyykki kadonnut</br>
@@ -360,10 +360,10 @@ for (var i = 0; i < activelayers.length; i++) {
       <!--label for="extra">Kiinteistöjaotus, rajamerkkejä symboloituna</label--><br>
       </div><br> 
         <input type="radio" id="orto" name="mapv" value="orto"
-         src="ortokuva.json">
+         src="cadastral_ortophotos.json">
         <label for="orto">Kiinteistöjaotus ortokuvalla</label><br>
         <input type="radio" id="orto_v" name="mapv" value="orto_vaara"
-         src="ortokuva_vaaravari.json">
+         src="cadastral_ortophotos_infrared.json">
         <label for="orto_v">Kiinteistöjaotus ortokuva (vääräväri)</label><br>
         <!--input type="radio" id="wmts_taustakartta" name="mapv" value="wmts_taustakartta"
         bg="off" src="wmts_taustakartta.json">
