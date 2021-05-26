@@ -28,7 +28,8 @@
                   "source": "wmts_taustakartta",
                   "paint": {}
               },{
-                "id": "PalstanSijaintitiedot",
+                "id": "PalstanSijaintitiedot",              
+                "name": "Palstansijaintitiedot",
                 "type": "fill",
                 "source": "kipa",
                 "source-layer": "PalstanSijaintitiedot",
@@ -38,6 +39,7 @@
                 }
               },{
                 "id" : "KiinteistorajanSijaintitiedot",
+                "name": "Kiinteistöraja",
                 "type" : "line",
                 "source" : "kipa",
                 "source-layer" : "KiinteistorajanSijaintitiedot",
@@ -48,7 +50,26 @@
                   "line-width" : 1
                 }
               },{
+                "id" : "KiinteistotunnuksenSijaintitiedot",
+                "name": "Kiinteistötunnus",
+                "type" : "symbol",
+                "source" : "kipa",
+                "source-layer" : "KiinteistotunnuksenSijaintitiedot",
+                "minzoom": 12,
+                "layout" : {
+                  "text-field" : "{kiinteistotunnuksenEsitysmuoto}",
+                  "text-font" : [ "Liberation Sans NLSFI" ],
+                  "symbol-placement" : "point",
+                  "text-size" : 12
+                },
+                "paint" : {
+                    "text-color" : "#1A1AF0",
+                    "text-halo-color" : "#fff",
+                    "text-halo-width" : 2
+                }
+              },{
                 "id": "RajamerkinSijaintitiedot",
+                "name": "Rajamerkki",
                 "type": "circle",
                 "source": "kipa",
                 "source-layer": "RajamerkinSijaintitiedot",
@@ -74,24 +95,8 @@
                 }
                            
               },{
-                "id" : "KiinteistotunnuksenSijaintitiedot",
-                "type" : "symbol",
-                "source" : "kipa",
-                "source-layer" : "KiinteistotunnuksenSijaintitiedot",
-                "minzoom": 12,
-                "layout" : {
-                  "text-field" : "{kiinteistotunnuksenEsitysmuoto}",
-                  "text-font" : [ "Liberation Sans NLSFI" ],
-                  "symbol-placement" : "point",
-                  "text-size" : 12
-                },
-                "paint" : {
-                    "text-color" : "#1A1AF0",
-                    "text-halo-color" : "#fff",
-                    "text-halo-width" : 2
-                }
-              },{
                 "id": "RajamerkinSijaintitiedot_tunnus",
+                "name": "Rajamerkin tunnus",
                 "type": "symbol",
                 "source": "kipa",
                 "source-layer": "RajamerkinSijaintitiedot",
