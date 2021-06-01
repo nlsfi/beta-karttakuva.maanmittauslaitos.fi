@@ -38,43 +38,7 @@
           </symbol>
         </symbols>
       </style>
-      <style layer="KiinteistorajanSijaintitiedot" max-zoom="-1" min-zoom="9" enabled="1" name="KiinteistorajanSijaintitiedot" geometry="1" expression="geometry-type IS 'LineString'">
-        <symbols>
-          <symbol alpha="1" clip_to_extent="1" force_rhr="0" type="line" name="0">
-            <layer locked="0" enabled="1" pass="0" class="SimpleLine">
-              <prop k="align_dash_pattern" v="0"/>
-              <prop k="capstyle" v="flat"/>
-              <prop k="customdash" v="5;2"/>
-              <prop k="customdash_map_unit_scale" v="3x:0,0,0,0,0,0"/>
-              <prop k="customdash_unit" v="MM"/>
-              <prop k="dash_pattern_offset" v="0"/>
-              <prop k="dash_pattern_offset_map_unit_scale" v="3x:0,0,0,0,0,0"/>
-              <prop k="dash_pattern_offset_unit" v="MM"/>
-              <prop k="draw_inside_polygon" v="0"/>
-              <prop k="joinstyle" v="miter"/>
-              <prop k="line_color" v="255,0,0,255"/>
-              <prop k="line_style" v="solid"/>
-              <prop k="line_width" v="0.264583"/>
-              <prop k="line_width_unit" v="MM"/>
-              <prop k="offset" v="0"/>
-              <prop k="offset_map_unit_scale" v="3x:0,0,0,0,0,0"/>
-              <prop k="offset_unit" v="MM"/>
-              <prop k="ring_filter" v="0"/>
-              <prop k="tweak_dash_pattern_on_corners" v="0"/>
-              <prop k="use_custom_dash" v="0"/>
-              <prop k="width_map_unit_scale" v="3x:0,0,0,0,0,0"/>
-              <data_defined_properties>
-                <Option type="Map">
-                  <Option type="QString" value="" name="name"/>
-                  <Option name="properties"/>
-                  <Option type="QString" value="collection" name="type"/>
-                </Option>
-              </data_defined_properties>
-            </layer>
-          </symbol>
-        </symbols>
-      </style>
-      <style layer="KiinteistorajanSijaintitiedot" max-zoom="-1" min-zoom="-1" enabled="1" name="KiinteistorajanSijaintitiedotViiva" geometry="1" expression="">
+      <style layer="KiinteistorajanSijaintitiedot" max-zoom="-1" min-zoom="-1" enabled="1" name="KiinteistorajanSijaintitiedot" geometry="1" expression="">
         <symbols>
           <symbol alpha="1" clip_to_extent="1" force_rhr="0" type="line" name="0">
             <layer locked="0" enabled="1" pass="0" class="SimpleLine">
@@ -110,7 +74,7 @@
           </symbol>
         </symbols>
       </style>
-      <style layer="RajamerkinSijaintitiedot" max-zoom="-1" min-zoom="12" enabled="1" name="RajamerkinSijaintitiedot22" geometry="0" expression="">
+      <style layer="RajamerkinSijaintitiedot" max-zoom="-1" min-zoom="12" enabled="1" name="RajamerkinSijaintitiedot" geometry="0" expression="">
         <symbols>
           <symbol alpha="1" clip_to_extent="1" force_rhr="0" type="marker" name="0">
             <layer locked="0" enabled="1" pass="0" class="SimpleMarker">
@@ -143,7 +107,7 @@
           </symbol>
         </symbols>
       </style>
-      <style layer="MaaraalanOsanSijaintitiedot" max-zoom="-1" min-zoom="12" enabled="1" name="MaaraalanOsanSijaintitiedot_point" geometry="0" expression="">
+      <style layer="MaaraalanOsanSijaintitiedot" max-zoom="-1" min-zoom="12" enabled="1" name="MaaraalanOsanSijaintitiedotPiste" geometry="0" expression="">
         <symbols>
           <symbol alpha="1" clip_to_extent="1" force_rhr="0" type="marker" name="0">
             <layer locked="0" enabled="1" pass="0" class="SvgMarker">
@@ -175,7 +139,7 @@
           </symbol>
         </symbols>
       </style>
-      <style layer="MaaraalanOsanSijaintitiedot" max-zoom="-1" min-zoom="12" enabled="1" name="MaaraalanOsanSijaintitiedot" geometry="2" expression="">
+      <style layer="MaaraalanOsanSijaintitiedot" max-zoom="-1" min-zoom="12" enabled="1" name="MaaraalanOsanSijaintitiedotAlue" geometry="2" expression="">
         <symbols>
           <symbol alpha="1" clip_to_extent="1" force_rhr="0" type="fill" name="0">
             <layer locked="0" enabled="1" pass="0" class="SimpleFill">
