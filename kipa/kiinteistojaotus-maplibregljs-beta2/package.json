@@ -1,5 +1,5 @@
 {
-  "name": "kiinteistojaotus-maplibregljs-beta2",
+  "name": "kiinteistojaotus-simple-maplibre-beta2",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -12,10 +12,6 @@
   "scripts": {
     "start": "parcel index.html",
     "build": "parcel build --public-url . index.html"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/nls-jajuko/beta-karttakuva-maplibre-gljs.git"
   },
   "browserslist": {
     "production": [

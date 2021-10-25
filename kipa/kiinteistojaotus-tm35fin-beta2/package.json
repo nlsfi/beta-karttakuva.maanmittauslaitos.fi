@@ -2,7 +2,7 @@
   "name": "kiinteistojaotus-tm35fin-beta2",
   "main": "index.js",
   "dependencies": {
-    "ol": "6.7.0",
+    "ol": "6.8.1",
     "proj4": "^2.7.0"
   },
   "devDependencies": {
