@@ -9,8 +9,9 @@ More info and Demo applications
 - <https://beta-karttakuva.maanmittauslaitos.fi>
 - <https://beta-karttakuva.maanmittauslaitos.fi/vectortiles/v20/index.html#14/62.90921/27.66579> (background map style)
 - <https://beta-karttakuva.maanmittauslaitos.fi/vectortiles/hobby/index.html#14/62.90921/27.66579> (with terrain)
-- <https://www.maanmittauslaitos.fi/kartat-ja-paikkatieto/asiantuntevalle-kayttajalle/kartta-ja-paikkatietojen-rajapintapalvelut-37>  (in finnish)
 
+Information on how to acquire the API key available at
+- <https://www.maanmittauslaitos.fi/kartat-ja-paikkatieto/asiantuntevalle-kayttajalle/paikkatietojen-rajapintapalvelut/api-avaimen> 
 
 Unofficial Proof-of-Concept demos for Android and Qt (no warranty or support of any kind for these projects)
 
