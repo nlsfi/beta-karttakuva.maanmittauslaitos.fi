@@ -23,8 +23,8 @@ OpenLayers (custom projection EPSG:3067 and gridset ETRS-TM35FIN)
 
 Android
 
-- <https://github.com/nls-jajuko/beta-karttakuva-maplibre-gl-native more up to date but only map at the moment
-- <https://github.com/nls-jajuko/beta-karttakuva-android> more complete Proof-of-Concept
+- <https://github.com/nls-jajuko/beta-karttakuva-maplibre-gl-native> more up to date but only map at the moment
+- <https://github.com/nls-jajuko/beta-karttakuva-android> more complete Proof-of-Concept but aging android setup
 
 Qt
 
