@@ -19,14 +19,14 @@ Maplibre GL JS
 - <https://github.com/nls-jajuko/beta-karttakuva-maplibre-gljs>
 
 OpenLayers (custom projection EPSG:3067 and gridset ETRS-TM35FIN)
-- <https://github.com/nls-jajuko/beta-karttakuva-generic-ol-3067>
+- <https://github.com/nls-jajuko/beta-karttakuva-generic-ol-3067> (upgraded to openlayers 7.1.0)
 
-Android
+Android 
 
-- <https://github.com/nls-jajuko/beta-karttakuva-maplibre-gl-native> more up to date but only map at the moment
-- <https://github.com/nls-jajuko/beta-karttakuva-android> more complete Proof-of-Concept but aging android setup
+- <https://github.com/nls-jajuko/beta-karttakuva-maplibre-gl-native> more up to date mashup but only map at the moment
+- <https://github.com/nls-jajuko/beta-karttakuva-android> more complete Proof-of-Concept but based on aging android setup
 
-Qt
+Qt 5.15 
 
 - <https://github.com/nls-jajuko/beta-karttakuva-qt>
 - <https://github.com/nls-jajuko/beta-karttakuva-qtplugin>
