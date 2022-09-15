@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Beta Karttakuva Vector Tiles and Demos</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description"
+        content="Demos for National Land Survey of Finland Vector Tile Service">
+    <meta charset="UTF-8">
+    <link type="text/css" rel="stylesheet"
+        href="https://beta-karttakuva.maanmittauslaitos.fi/js/dist/bootstrap.min.css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Titillium+Web&display=swap" as="style"
+        onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Titillium+Web&display=swap">
+    </noscript>
+    <style type="text/css">
+        body {
+            font-family: 'Titillium Web', sans-serif;
+            padding: 1rem;
+        }
+
+        img#logo {
+            width: 4.4rem;
+            height: 2rem;
+        }
+
+        img.promo {
+            margin: 1rem;
+            height: 10rem;
+        }
+
+        .navbar a.navbar-brand h3 {
+            display: inline-block;
+        }
+
+        .karttakuva .card-header {
+            background-color: rgba(207, 239, 248, 0.2);
+        }
+
+        .card-block {
+            padding: 0.5rem;
+        }
+
+        h1 {
+            font-size: 1rem;
+        }
+
+        h2 {
+            font-size: 1rem;
+        }
+
+        h3 {
+            font-size: 1rem;
+        }
+
+        h4 {
+            font-size: 1rem;
+        }
+
+        a {
+            color: blue;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-light">
+        <img width="4.4rem" height="2rem" alt="maanmittauslaitos.fi liikemerkki" id="logo"
+            src="https://beta-karttakuva.maanmittauslaitos.fi/mml-logo-fi.png" />
+        <h1>beta-karttakuva.maanmittauslaitos.fi</h1>
+    </nav>
+    <div id="main">
+        <div class="card-group karttakuva">
+            <div class="card">
+                <h2 class="card-header">Cadastre Vector Tiles</h2>
+                <div class="card-block">
+                    <h3>Production release 2022-06-01 as Version v3</h3>
+                    <label for="cadastre_vt_quick_start">Quick start</label>
+                    <ol id="cadastre_vt_quick_start">
+                        <li><span><a href="https://www.maanmittauslaitos.fi/rajapinnat/api-avaimen-ohje">Get The free API Key - and get access to Free of Charge Services</a></span></li>
+                        <li><span>Fork one of the examples or download a StyleJSON Template using links below</span>
+                        </li>
+                        <li><span>Edit the style to make a custom map for your application</span></li>
+                    </ol>
+                    <label for="cadastre_vt_demos">Demo</label>
+
+                    <ul id="cadastre_vt_demos">
+                        <li><a
+                                href="https://beta-karttakuva.maanmittauslaitos.fi/demo/kiinteisto-avoin/kiinteistojaotus-openlayers-tuotanto/">Map Demo with OpenLayers (7.1.0)</a>
+                            <a
+                                href="https://github.com/nlsfi/avoin-karttakuva.maanmittauslaitos.fi/tree/master/kiinteisto-avoin/kiinteistojaotus-openlayers">(Source
+                                code at GitHub)</a>
+                        </li>
+                    </ul>
+
+                    <label for="notes_cadastre_vt">Info</label>
+                    <ul id="notes_cadastre_vt">
+                        <li><a href="https://www.maanmittauslaitos.fi/karttakuvapalvelu/tekninen-kuvaus-vektoritiilet">Documentation
+                                for Cadastre Vector Tiles</a> (in finnish)</li>
+                        <li>Cadastre Vector Tiles are available with the API-key</li>
+                        <li>Cadastre Vector Tiles contain both register data properties and geometries.</li>
+                        <li>Cartographic generalization is applied to geometries on some tilematrix levels</li>
+                        <li>Default projection is WebMercator. ETRS-TM35FIN is supported with
+                            ?TileMatrixSet=ETRS-TM35FIN</li>
+                    </ul>
+                    <label for="stylejson_urls_for_cadastre">StyleJSON Templates for Vector Tile Client Apps
+                        (requires API-key)</label>
+                    <ul id="stylejson_urls_for_cadastre">
+                        <li><a
+                                href="https://avoin-karttakuva.maanmittauslaitos.fi/kiinteisto-avoin/styles/v3/kiinteistojaotus_pelkistetty.json">
+                                Cadastre boundaries StyleJSON template
+                            </a><br /><span>(compatible with QGIS)</li>
+                        <li><a
+                                href="https://avoin-karttakuva.maanmittauslaitos.fi/kiinteisto-avoin/styles/v3/kiinteistojaotus.json">
+                                Cadastre boundaries StyleJSON template with some property based visualisation
+                            </a><br /><span>(compatible with QGIS)</li>
+                    </ul>
+                    <label for="cadastre_vt_demos2">Additional Demos</label>
+
+                    <ul id="cadastre_vt_demos2">
+                        <li><a
+                                href="https://github.com/nlsfi/avoin-karttakuva.maanmittauslaitos.fi/tree/master/kiinteisto-avoin/kiinteistojaotus-qgis">Quick
+                                Start for QGIS</a></li>
+                        <li><a
+                                href="https://beta-karttakuva.maanmittauslaitos.fi/demo/kiinteisto-avoin/kiinteistojaotus-maplibregljs-tuotanto/">
+                                    Map Demo with Maplibre GL JS</a>
+                            <ul>
+                                <li><a
+                                        href="https://github.com/nlsfi/avoin-karttakuva.maanmittauslaitos.fi/tree/master/kiinteisto-avoin/kiinteistojaotus-maplibregljs">Source
+                                        Code at GitHub</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <label for="cadastre_more_info">More info</label>
+                <ul id="cadastre_more_info">
+</ul>
+
+                <div class="card-block">
+                    <label for="cadastre_ogcapif">see also &gt; Information and Resources for for Cadastre OGC API
+                        features</label>
+                    <ul id="cadastre_at_nlsfi">
+                        <li><a href="https://www.maanmittauslaitos.fi/kiinteistotietojen-kyselypalvelu-ogc-api">Documentation
+                                for Cadastre OGC API features</a> (in finnish)
+                        </li>
+                        <li>Cadastre OGC API Features requires registration</li>
+                        <li>Cadastre OGC API Features contain both register data properties and geometries.</li>
+                        <li>No cartographic generalization is applied to geometries</li>
+                    </ul>
+                </div>
+
+
+
+            </div>
+            <div class="card">
+                <h2 class="card-header">Topographic Vector Tiles</h2>
+                <div class="card-block">
+                    <h3>Production release 2020-06-02 as Version v20</h3>
+                    <label for="quick_start">Quick Start</label>
+                    <ol id="quick_start">
+                        <li><span><a href="https://www.maanmittauslaitos.fi/rajapinnat/api-avaimen-ohje">Get The free API Key - and get access to Free of Charge Services</a></span></li>
+                        <li><span>Download the Generic StyleJSON Template using links below</span></li>
+                        <li><span>Edit the style to make a custom map for your application</span></li>
+                    </ol>
+                    <label for="webmercator_demos">Demo</label>
+                    <ul id="webmercator_demos">
+                        <li><span><a href="/vectortiles/v20/">Demo with Style and language selection and
+                                    Geocoding</a></span>
+
+                        </li>
+                    </ul>
+                    <label for="useful">Info</label>
+                    <ul id="useful">
+                        <li><a
+                                href="https://www.maanmittauslaitos.fi/kartat-ja-paikkatieto/asiantuntevalle-kayttajalle/kartta-ja-paikkatietojen-rajapintapalvelut-37">
+                                Documentation for Topographic Vector Tiles 
+                            </a> (in finnish)</li>
+                        <li>Topographic Vector Tiles are available with the API-key</li>
+                        <li>Topographic Vector Tiles contain both register data properties and geometries.</li>
+                        <li>Cartographic generalization is applied to geometries on some tilematrix levels</li>
+                        <li>Default projection is WebMercator. ETRS-TM35FIN is supported with
+                            ?TileMatrixSet=ETRS-TM35FIN</li>
+
+                    </ul>
+
+                    <label for="stylejson_urls">StyleJSON Templates for Vector Tile Client Apps (requires
+                        API-key)</label>
+                    <ul id="stylejson_urls">
+                        <li><a
+                                href="https://avoin-karttakuva.maanmittauslaitos.fi/vectortiles/stylejson/v20/generic.json?TileMatrixSet=WGS84_Pseudo-Mercator">
+                                Generic StyleJSON Template for WebMercator
+                            </a><br /><span>This style implements only a raw visualization for some layers</span></li>
+                        <li><a
+                                href="https://avoin-karttakuva.maanmittauslaitos.fi/vectortiles/stylejson/v20/taustakartta.json?TileMatrixSet=WGS84_Pseudo-Mercator">
+                                StyleJSON Template for WebMercator
+                            </a><br /><span>Contains rules for roads, tunnels, bridges, junctions</span></li>
+                    </ul>
+                    <label for="webmercator_demos2">Additional Demos</label>
+                    <ul id="webmercator_demos2">
+                        <li><span><a href="/vectortiles/v20/">Vector Tiles Map with Style selection and Geocoding
+                                    support</a></span>
+                            <br><span>Four different styles and language selection of finnish, swedish and sami
+                                languages</span>
+                        </li>
+                        <li><span><a href="/vectortiles/hobby/index.html#12.9/67.01818/27.21196">Custom styled Map with
+                                    contour lines, scarps and other terrain</a></span>
+                        </li>
+                        <li>
+                            <span><a href="/vectortiles/v20/ol/taustakartta-3067/index.html">Background Map
+                                    (ETRS-TM35FIN)</a></span>
+                        </li>
+                        <li>
+                            <span><a href="/vectortiles/v20/ol/orthophoto-3067/index.html">Hybrid Vector with Orthophoto
+                                    Map (ETRS-TM35FIN)</a></span>
+                        </li>
+                        <li>
+                            <span><a href="/vectortiles/v20/ol/generic-3067/index.html">Generic Style Map
+                                    (ETRS-TM35FIN)</a></span>
+                        </li>
+                        <li>
+                            <span><a href="/vectortiles/v20/ol/hobby-3067/index.html">Custom styled Map with contour
+                                    lines, scarps and other terrain (ETRS-TM35FIN)</a></span>
+                        </li>
+                    </ul>
+                    <label for="topographic_more_info">More info</label>
+                    <ul id="topographic_more_info">
+                        <li><a href="/catalogue/index.html?codelistgroup=maastotiedot">
+                                Codelist Catalogue for Vector Tiles properties</a><br><span>
+                            </span></li>
+                        <li><a
+                                href="https://beta-paikkatieto.maanmittauslaitos.fi/catalogue/index.html?codelistgroup=geographic-names">
+                                Codelist Catalogue for Geocoding Places properties</a><br><span>
+                            </span></li>
+
+
+                    </ul>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="card-group">
+            <div class="card">
+                <h2 class="card-header">Standards and initiatives</h2>
+                <div class="card-block">
+                    <label for="standards">Standards reference for OGC API features and Vector tiles services</label>
+                    <ul id="standards">
+                        <li><a href="https://ogcapi.ogc.org/">#OGC API</a></li>
+                        <li><a href="https://ogcapi.ogc.org/features/">#OGC API - Features</a></li>
+                        <li><a href="https://openapis.org/">OpenAPI Initiative</a></li>
+                        <li><a href="https://docs.mapbox.com/vector-tiles/specification/">Vector Tiles Specification</a>
+                        </li>
+                        <li><a href="https://github.com/mapbox/tilejson-spec/tree/master/3.0.0">TileJSON
+                                Specification</a></li>
+                    </ul>
+
+                </div>
+                <!-- -->
+                <h2 class="card-header">Client application and library compatilibity</h2>
+                <div class="card-block">
+                    <ul>
+                        <li><span>Vector Tiles are known to be compatible with<br /> <a
+                                    href="https://maputnik.github.io/editor" target="_blank"
+                                    rel="noreferrer">Maputnik</a>, <a href="https://github.com/maplibre/maplibre-gl-js"
+                                    target="_blank" rel="noreferrer">Maplibre GL JS</a>, <a
+                                    href="https://github.com/maplibre/maplibre-gl-native" target="_blank"
+                                    rel="noreferrer">Maplibre Native (Android)</a>, <a
+                                    href="https://qgis.org/">QGIS</a>,<br /> Mapbox GL JS|Mapbox (v1), Maps SDK for
+                                Android|Mapbox (v1), Maps SDK for Qt 5.15|Mapbox (v1)</span>,<br /><a
+                                href="https://openlayers.org/" target="_blank" rel="noreferrer">OpenLayers</a>, <a
+                                href="https://oskari.org/gallery" target="_blank" rel="noreferrer">Oskari</a>, <a
+                                href="https://www.maanmittauslaitos.fi/asioi-verkossa/suomifi-kartat" target="_blank"
+                                rel="noreferrer">Suomi.fi-kartat</a>
+                            </span></li>
+                        <li><span>The OGC API Simple Features service endpoint is known to be compatible with <a
+                                    href="https://gdal.org/" target="_blank" rel="noreferrer">GDAL</a>, <a
+                                    href="https://qgis.org/">QGIS</a>, ArcGIS Online and with any JSON or GeoJSON
+                                compatible library (such as OpenLayers)</span>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="card-group karttakuva">
+
+
+        </div>
+    </div>
+    <!-- Load Vue followed by BootstrapVue -->
+    <!--script src="https://beta-karttakuva.maanmittauslaitos.fi/js/dist/vue.min.js"></script>
+    <script src="https://beta-karttakuva.maanmittauslaitos.fi/js/dist/bootstrap-vue.min.js"></script-->
+
+
+</body>
+
+</html>
