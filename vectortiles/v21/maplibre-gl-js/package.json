@@ -1,6 +1,6 @@
 {
   "name": "beta-karttakuva-maplibre-gljs",
-  "version": "21.0.0",
+  "version": "21.1.0",
   "source": "index.html",
   "browserslist": "> 0.5%, last 2 versions, not dead",
   "scripts": {
@@ -9,9 +9,9 @@
     "serve": "vite preview"
   },
   "dependencies": {
-    "maplibre-gl": "4.7.1"
+    "maplibre-gl": "5.18.0"
   },
   "devDependencies": {
-    "vite": "^4.0.4"
+    "vite": "7.3.1"
   }
 }

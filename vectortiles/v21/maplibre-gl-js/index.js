@@ -9,7 +9,7 @@ const tileVer = 'v21', styleVer = 'v21',
   styleName = 'hobby',//'taustakartta',
   tileMatrixSet = 'WGS84_Pseudo-Mercator',
   /* get your own api key at maanmittauslaitos.fi <<https://www.maanmittauslaitos.fi/rajapinnat/api-avaimen-ohje>> */
-  apiKey = '<INSERTY-YOUR-API-KEY>',
+  apiKey = '<INSERT-YOUR-API-KEY>',
   styleUrl = `https://avoin-karttakuva.maanmittauslaitos.fi/vectortiles/stylejson/${styleVer}/${styleName}.json?TileMatrixSet=${tileMatrixSet}&api-key=${apiKey}`;
 
 var map = new Map({
